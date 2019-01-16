@@ -64,5 +64,12 @@ is_matching_dotfile = lambda dotfile1, dotfile2: os.path.split(dotfile1)[1] == o
 
 coupled_dotfiles = ziptuple(common_dotfiles, distro_dotfiles, is_matching_dotfile)
 
+unix_shell_path = os.environ['SHELL']
+
 for common_dotfile, distro_dotfile in coupled_dotfiles:
     print(f'{common_dotfile} : {distro_dotfile}' + "\n")
+    execution_dir = distro_dotfile if distro_dotfile else common_dotfile
+    process = subprocess.Popen(args=['ls'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=execution_dir)
+    stdout, stderr = process.communicate()
+    if stderr:
+         print(stderr.decode('utf-8'))
