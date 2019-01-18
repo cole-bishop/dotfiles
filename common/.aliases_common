@@ -20,4 +20,7 @@ alias l='ls -CF'
 if [[ $(which nvim) ]]; then
     alias v='nvim'
 fi
-
+if [[ $(which xsel) ]]; then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+fi

@@ -34,7 +34,7 @@ def is_dotfile(abspath):
     try:
         # Absolute path split on path segment - access last element (filename)
         # then first character of final segment. Should be '.' if dotfile.
-        return str(abspath).split(os.sep)[-1][0] is '.' 
+        return str(abspath).split(os.sep)[-1][0] == '.' 
     except:
         return False
 
@@ -60,16 +60,18 @@ distro_dotfiles_dir = os.path.join(os.getcwd(), 'distros', distro)
 common_dotfiles = list(filter(is_dotfile, walkabs(common_dotfiles_dir)))
 distro_dotfiles = list(filter(is_dotfile, walkabs(distro_dotfiles_dir)))
 
-is_matching_dotfile = lambda dotfile1, dotfile2: os.path.split(dotfile1)[1] == os.path.split(dotfile2)[1]
+# Predicate to tell if the common dotfile is the pair for the given distro dotfile
+is_matching_dotfile = lambda common_dotfile, distro_dotfile: f'{os.path.split(common_dotfile)[1]}_common' == os.path.split(distro_dotfile)[1]
 
-coupled_dotfiles = ziptuple(common_dotfiles, distro_dotfiles, is_matching_dotfile)
+coupled_dotfiles = ziptuple(distro_dotfiles, common_dotfiles, is_matching_dotfile)
 
-unix_shell_path = os.environ['SHELL']
+# unix_shell_path = os.environ['SHELL']
 
-for common_dotfile, distro_dotfile in coupled_dotfiles:
+for distro_dotfile, common_dotfile in coupled_dotfiles:
     print(f'{common_dotfile} : {distro_dotfile}' + "\n")
-    execution_dir = distro_dotfile if distro_dotfile else common_dotfile
-    process = subprocess.Popen(args=['ls'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=execution_dir)
-    stdout, stderr = process.communicate()
-    if stderr:
-         print(stderr.decode('utf-8'))
+    # execution_dir = distro_dotfile if distro_dotfile else common_dotfile
+    # process = subprocess.Popen(args=['ls'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=execution_dir)
+    # stdout, stderr = process.communicate()
+    # if stderr:
+    #      print(stderr.decode('utf-8'))
+a = 3
