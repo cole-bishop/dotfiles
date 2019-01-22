@@ -1,3 +1,7 @@
 [user]
-	email = cbishop@myriadmobile.com
+	email = xlocexlocexloce@gmail.com
 	name = Cole Bishop
+[color]
+	ui = true
+[core]
+	pager = less -r
