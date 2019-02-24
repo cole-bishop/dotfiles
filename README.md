@@ -4,7 +4,7 @@ Just another dotfiles repo that's powered using stow.
 
 ## Running
 
-Install stow, then run something similar to the following:
+Install stow, then execute the following:
 ```
-stow --dir=<directory-to-appear-in> --target=$HOME <ubuntu>
+stow --dir=<directory-to-appear-in> --target=$HOME <distro-choice>
 ```
