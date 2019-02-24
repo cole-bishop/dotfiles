@@ -1,0 +1,9 @@
+if test $(which xsel); then
+	alias pbcopy='xsel --clipboard --input'
+	alias pbpaste='xsel --clipboard --output'
+fi
+alias cgrep='grep -rIPn --color=auto'
+alias lessr='less -r'
+
+# git
+alias glfm='git ls-files --modified'
