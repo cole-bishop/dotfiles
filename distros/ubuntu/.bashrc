@@ -132,6 +132,6 @@ export NVM_DIR="$HOME/.nvm"
 if [ -f ~/.aliases ]; then
     source $HOME/.aliases
 fi
-if [ -f ~/.functions]; then
+if [ -f ~/.functions ]; then
     source $HOME/.functions
 fi
