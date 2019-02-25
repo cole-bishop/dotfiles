@@ -1,0 +1,15 @@
+# PHP Syntax check directory
+phpl ()
+{
+  dir=`pwd`
+  echo "running 'php -l' on '$dir'"
+  for f in `find | egrep "\.(php|phtml)$"`; do
+    t=`php -l $f`
+    if [ $? == 0 ]; then
+      status=`echo -e "\033[1;32mPASS\033[0m"`
+    else
+      status=`echo -e "\033[1;31mFAIL\033[0m"`
+    fi
+    echo "[$status] $f"
+  done
+}

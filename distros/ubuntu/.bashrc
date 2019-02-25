@@ -127,3 +127,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Common shell functions and aliases.
+if [ -f ~/.aliases ]; then
+    source $HOME/.aliases
+fi
+if [ -f ~/.functions]; then
+    source $HOME/.functions
+fi

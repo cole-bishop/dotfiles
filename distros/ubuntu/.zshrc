@@ -94,8 +94,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Common shell functions and aliases.
 if [ -f ~/.aliases ]; then
     source $HOME/.aliases
+fi
+
+if [ -f ~/.functions]; then
+    source $HOME/.functions
 fi
 
 export NVM_DIR="$HOME/.nvm"
