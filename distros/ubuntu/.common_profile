@@ -1,0 +1,4 @@
+# set PATH to include composer.
+if [ -d "$HOME/.composer/vendor/bin" ] ; then
+    PATH="$HOME/.composer/vendor/bin:$PATH"
+fi
