@@ -10,11 +10,14 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="random"
 
+# Download list of other themes
+cd $HOME/.oh-my-zsh/themes && { curl -sO https://raw.githubusercontent.com/dersam/staples/master/staples.zsh-theme; cd -; }
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "rkj-repos" "aussiegeek" "bureau" "xiong-chiamiov-plus" "staples" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -96,12 +99,16 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Common shell functions and aliases.
-if [ -f ~/.aliases ]; then
+if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
 fi
 
-if [ -f ~/.functions ]; then
+if [ -f $HOME/.functions ]; then
     source $HOME/.functions
+fi
+
+if [ -f $HOME/.zprofile ]; then
+    source $HOME/.zprofile
 fi
 
 export NVM_DIR="$HOME/.nvm"
@@ -109,5 +116,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source .zprofile
