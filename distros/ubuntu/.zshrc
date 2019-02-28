@@ -17,7 +17,7 @@ cd $HOME/.oh-my-zsh/themes && { curl -sO https://raw.githubusercontent.com/dersa
 # Spaceship theme
 if [[ -d $ZSH_CUSTOM/themes ]]; then
     rm -rf "$ZSH_CUSTOM/themes/spaceship-prompt" $ZSH_CUSTOM/themes/spaceship.zsh-theme
-    git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" > /dev/null \
+    git clone -q https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" \
     && ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 fi
 
