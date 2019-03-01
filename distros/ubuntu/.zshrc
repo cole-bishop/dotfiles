@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Ensure oh-my-zsh is installed.
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/xloce/.oh-my-zsh"
 
@@ -106,21 +109,20 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Common shell functions and aliases.
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
+# Common shell files.
+for dotfile in .aliases .functions .fzf.zsh
+do
+    [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
+done
+
+# use nvim as editor if possible
+if [ -f /usr/bin/nvim ]; then
+    EDITOR="nvim"
+else
+    EDITOR="vim"
 fi
 
-if [ -f $HOME/.functions ]; then
-    source $HOME/.functions
-fi
-
-if [ -f $HOME/.zprofile ]; then
-    source $HOME/.zprofile
-fi
-
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

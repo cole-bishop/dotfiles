@@ -100,10 +100,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# if [ -f ~/.bash_aliases ]; then
+#     . ~/.bash_aliases
+# fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -116,16 +115,20 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Common shell files.
+for dotfile in .aliases .functions .fzf.bash
+do
+    [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
+done
+
+# use nvim as editor if possible
+if [ -f /usr/bin/nvim ]; then
+    EDITOR="nvim"
+else
+    EDITOR="vim"
+fi
+
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Common shell functions and aliases.
-if [ -f ~/.aliases ]; then
-    source $HOME/.aliases
-fi
-if [ -f ~/.functions ]; then
-    source $HOME/.functions
-fi

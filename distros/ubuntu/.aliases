@@ -2,8 +2,12 @@ if test $(which xsel); then
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
 fi
+
+# grep
 alias cgrep='grep -rIPn --color=auto'
+
+# less
 alias lessr='less -r'
 
 # git
-alias glfm='git ls-files --modified'
+alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
