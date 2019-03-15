@@ -189,7 +189,7 @@ export SCM_CHECK=true
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 
-
+# asdf
 . $HOME/.asdf/asdf.sh
-
 . $HOME/.asdf/completions/asdf.bash
+. $HOME/.asdf/plugins/java/asdf-java-wrapper.bash

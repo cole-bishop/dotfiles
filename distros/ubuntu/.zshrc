@@ -122,7 +122,7 @@ else
     EDITOR="vim"
 fi
 
-
+# asdf
 . $HOME/.asdf/asdf.sh
-
 . $HOME/.asdf/completions/asdf.bash
+[ -f "$HOME/.asdf/plugins/java/asdf-java-wrapper.zsh" ] && source $HOME/.asdf/plugins/java/asdf-java-wrapper.zsh

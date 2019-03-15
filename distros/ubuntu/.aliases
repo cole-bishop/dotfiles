@@ -11,3 +11,4 @@ alias lessr='less -r'
 
 # git
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
+alias glolsa='glols --all' # for use with oh-my-zsh git alias.
