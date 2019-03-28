@@ -15,7 +15,7 @@ ZSH_THEME="spaceship"
 
 # Download list of other themes
 # Staples theme
-cd $HOME/.oh-my-zsh/themes && { curl -sO https://raw.githubusercontent.com/dersam/staples/master/staples.zsh-theme; cd -; }
+cd $HOME/.oh-my-zsh/themes && { curl -sO https://raw.githubusercontent.com/dersam/staples/master/staples.zsh-theme > /dev/null; cd -; }
 
 # Spaceship theme
 if [[ -d $ZSH_CUSTOM/themes ]]; then
@@ -126,3 +126,8 @@ fi
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 [ -f "$HOME/.asdf/plugins/java/asdf-java-wrapper.zsh" ] && source $HOME/.asdf/plugins/java/asdf-java-wrapper.zsh
+
+# git 
+if which git > /dev/null; then
+	git config --global diff.tool vimdiff
+fi
