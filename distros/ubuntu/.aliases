@@ -8,6 +8,7 @@ alias cgrep='grep -rIPn --color=auto'
 
 # less
 alias lessr='less -r'
+alias lessrn='less -rN'
 
 # git
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
