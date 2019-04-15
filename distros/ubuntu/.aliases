@@ -12,4 +12,5 @@ alias lessrn='less -rN'
 
 # git
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
+alias gdmsa='git --no-pager diff --name-only HEAD|xargs -I % echo "`git rev-parse --show-toplevel`/%"' # list of modified and staged files with full directory paths.
 alias glolsa='glols --all' # for use with oh-my-zsh git alias.
