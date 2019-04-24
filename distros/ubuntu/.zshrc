@@ -130,3 +130,5 @@ fi
 if which git > /dev/null; then
 	git config --global diff.tool vimdiff
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
