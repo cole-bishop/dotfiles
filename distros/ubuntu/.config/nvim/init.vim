@@ -47,8 +47,7 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Vundle plugin config: easymotion/vim-easymotio
-nmap <space><space> <leader><leader>
-xmap <space><space> <leader><leader>
+let mapleader = ' '
 
 " General config
 set relativenumber
