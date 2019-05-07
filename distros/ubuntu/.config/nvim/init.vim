@@ -15,6 +15,8 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'easymotion/vim-easymotion'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " Initialize plugin system
 call plug#end()
 
@@ -35,6 +37,9 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Plugin config: easymotion/vim-easymotio
 let mapleader = ' '
+
+" Plugin config: scrooloose/nerdtree
+map <C-n> :NERDTreeToggle<CR>
 
 " General config
 set relativenumber
