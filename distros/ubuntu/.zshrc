@@ -7,28 +7,28 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 # Path to your oh-my-zsh installation.
 export ZSH="/home/xloce/.oh-my-zsh"
 
+# Use zplug as universal zsh plugin manager
+if [[ -x "$HOME/.zplug/autoload/zplug" ]] then
+	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+
+source ~/.zplug/init.zsh
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/battery", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 
-# Download list of other themes
-# Staples theme
-cd $HOME/.oh-my-zsh/themes && { curl -sO https://raw.githubusercontent.com/dersam/staples/master/staples.zsh-theme > /dev/null; cd -; }
-
-# Spaceship theme
-if [[ -d $ZSH_CUSTOM/themes ]]; then
-    rm -rf "$ZSH_CUSTOM/themes/spaceship-prompt" $ZSH_CUSTOM/themes/spaceship.zsh-theme
-    git clone -q https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" \
-    && ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-fi
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-ZSH_THEME_RANDOM_CANDIDATES=( "rkj-repos" "aussiegeek" "bureau" "xiong-chiamiov-plus" "staples" "spaceship" )
+# will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "rkj-repos" "aussiegeek" "bureau" "xiong-chiamiov-plus" "staples" "spaceship" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -76,7 +76,7 @@ ZSH_THEME_RANDOM_CANDIDATES=( "rkj-repos" "aussiegeek" "bureau" "xiong-chiamiov-
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git battery)
+# plugins=(git battery)
 
 source $ZSH/oh-my-zsh.sh
 
