@@ -17,6 +17,7 @@ zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/battery", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
+zplug "gradle/gradle-completion", from:gh-r
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
