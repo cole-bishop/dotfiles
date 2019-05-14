@@ -17,7 +17,10 @@ zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/battery", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "gradle/gradle-completion", from:gh-r
+zplug load
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -143,6 +146,13 @@ if which diff-so-fancy > /dev/null; then # see: https://github.com/so-fancy/diff
 fi
 if which git > /dev/null; then
 	git config --global diff.tool vimdiff
+	git config --global core.autocrlf false
+	git config --global core.safeclrf false
+	git config --global core.eol "clrf"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

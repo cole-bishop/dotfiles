@@ -151,3 +151,7 @@ if which git > /dev/null; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/xloce/.sdkman"
+[[ -s "/home/xloce/.sdkman/bin/sdkman-init.sh" ]] && source "/home/xloce/.sdkman/bin/sdkman-init.sh"
