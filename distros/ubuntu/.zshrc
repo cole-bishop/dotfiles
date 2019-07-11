@@ -20,6 +20,7 @@ zplug "plugins/tmux", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "gradle/gradle-completion", from:gh-r
+zplug 'wfxr/forgit'
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 
