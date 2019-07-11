@@ -20,6 +20,7 @@ zplug "plugins/tmux", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "gradle/gradle-completion", from:gh-r
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 
 # Set name of the theme to load --- if set to "random", it will
@@ -150,6 +151,9 @@ if which git > /dev/null; then
 	git config --global core.safeclrf false
 	git config --global core.eol "clrf"
 fi
+
+# Apache Karaf
+[ -d /opt/karaf ] && KARAF_HOME='/opt/karaf'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
