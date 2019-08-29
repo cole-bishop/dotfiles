@@ -19,9 +19,10 @@ zplug "plugins/battery", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
-zplug "gradle/gradle-completion", from:gh-r
 zplug 'wfxr/forgit'
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug load
 
 # Set name of the theme to load --- if set to "random", it will
@@ -116,10 +117,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Common shell files.
-for dotfile in .aliases .functions .fzf.zsh
+for dotfile in .aliases .functions .fzf.zsh .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
+
 
 # use nvim as editor if possible
 if [ -f /usr/bin/nvim ]; then
@@ -153,8 +155,8 @@ if which git > /dev/null; then
 	git config --global core.eol "clrf"
 fi
 
-# Apache Karaf
-[ -d /opt/karaf ] && KARAF_HOME='/opt/karaf'
+# Gruvbox
+[ -f ~/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh ] && source ~/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

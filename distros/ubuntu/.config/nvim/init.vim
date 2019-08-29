@@ -18,8 +18,13 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'morhetz/gruvbox'
 " Initialize plugin system
 call plug#end()
+
+" gruvbox
+let g:gruvbox_termcolors=16
 
 " Language server customization
 " Required for operations modifying multiple buffers like rename.

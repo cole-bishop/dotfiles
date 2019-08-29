@@ -116,7 +116,7 @@ if ! shopt -oq posix; then
 fi
 
 # Common shell files.
-for dotfile in .aliases .functions .fzf.bash
+for dotfile in .aliases .functions .fzf.bash .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
@@ -127,6 +127,8 @@ if [ -f /usr/bin/nvim ]; then
 else
     EDITOR="vim"
 fi
+
+export FOO="world"
 
 # git
 if which diff-so-fancy > /dev/null; then

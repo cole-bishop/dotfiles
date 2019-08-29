@@ -1,0 +1,3 @@
+#!/bin/bash
+cd $KARAF_HOME/bin/
+./karaf
