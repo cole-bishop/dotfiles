@@ -1,0 +1,6 @@
+session_name: fc-hotfix
+windows:
+- window_name: fc-hosts
+  layout: tiled
+  shell_command_before:
+    - cd ~/Documents/repos/fc-farm-centric-host && clear  # run as a first command in all panes

@@ -1,2 +1,4 @@
 .config/Code/User/settings.json
 .gitconfig
+.fzf.bash
+.fzf.zsh

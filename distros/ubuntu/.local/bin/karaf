@@ -1,3 +1,2 @@
 #!/bin/bash
-cd $KARAF_HOME/bin/
-./karaf
+$KARAF_HOME/bin/karaf "$@"
