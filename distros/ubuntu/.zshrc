@@ -5,7 +5,7 @@
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/xloce/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Use zplug as universal zsh plugin manager
 if [[ -x "$HOME/.zplug/autoload/zplug" ]] then

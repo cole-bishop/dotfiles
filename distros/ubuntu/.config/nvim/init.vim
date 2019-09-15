@@ -16,6 +16,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'chrisbra/vim-diff-enhanced'
+Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 " Initialize plugin system
 call plug#end()
