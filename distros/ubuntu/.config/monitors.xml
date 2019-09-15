@@ -70,9 +70,9 @@
           <serial>0x00000000</serial>
         </monitorspec>
         <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>119.98572540283203</rate>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>120.01551055908203</rate>
         </mode>
       </monitor>
     </logicalmonitor>

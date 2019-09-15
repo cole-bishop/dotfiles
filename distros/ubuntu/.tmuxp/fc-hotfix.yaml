@@ -3,4 +3,12 @@ windows:
 - window_name: fc-hosts
   layout: tiled
   shell_command_before:
-    - cd ~/Documents/repos/fc-farm-centric-host && clear  # run as a first command in all panes
+    - cd ~/Documents/repos/fc-farm-centric-host && clear
+- window_name: fc-portal
+  layout: tiled
+  shell_command_before:
+    - cd ~/Documents/repos/fc-portal && clear
+- window_name: tickets
+  layout: tiled
+  shell_command_before:
+    - cd ~/google-drive/Projects/FarmCentric/Tickets && clear

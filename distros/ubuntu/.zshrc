@@ -117,19 +117,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Common shell files.
-for dotfile in .aliases .functions .fzf.zsh .commonrc
+for dotfile in .aliases .function .fzf.zsh .export
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
-
-
-# use nvim as editor if possible
-if [ -f /usr/bin/nvim ]; then
-    EDITOR="nvim"
-else
-    EDITOR="vim"
-fi
-
 # git 
 if which diff-so-fancy > /dev/null; then # see: https://github.com/so-fancy/diff-so-fancy
 	git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"

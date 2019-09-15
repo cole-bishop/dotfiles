@@ -116,17 +116,11 @@ if ! shopt -oq posix; then
 fi
 
 # Common shell files.
-for dotfile in .aliases .functions .fzf.bash .commonrc
+for dotfile in .aliases .function .fzf.bash .export
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 
-# use nvim as editor if possible
-if [ -f /usr/bin/nvim ]; then
-    EDITOR="nvim"
-else
-    EDITOR="vim"
-fi
 
 export FOO="world"
 

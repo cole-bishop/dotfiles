@@ -1,0 +1,40 @@
+# settings desired to be the same for bash, zsh, etc, for all types of shell invocations
+# use nvim as editor if possible
+if [ -f /usr/bin/nvim ]; then
+    EDITOR="nvim"
+else
+    EDITOR="vim"
+fi
+# karaf
+export KARAF_VERSION="4.2.6"
+if [ -d "$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION" ] ; then
+     export KARAF_HOME="$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION"
+fi
+# java fx
+export FX_VERSION="13"
+if [ -d "$HOME/.local/lib/javafx-sdk-$FX_VERSION/lib" ] ; then
+     export PATH_TO_FX="$HOME/.local/lib/javafx-sdk-$FX_VERSION/lib"
+fi
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+# Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY=~/.node_history;
+# Allow 32³ entries; the default is 1000.
+export NODE_REPL_HISTORY_SIZE='32768';
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy';
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+# Increase Bash history size. Allow 32³ entries; the default is 500.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+# Avoid issues with `gpg` as installed via Homebrew.
+# https://stackoverflow.com/a/42265848/96656
+export GPG_TTY=$(tty);

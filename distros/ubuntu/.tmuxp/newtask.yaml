@@ -1,0 +1,6 @@
+session_name: task-num
+windows:
+- window_name: repos
+  layout: tiled
+  shell_command_before:
+    - cd ~/Documents/repos && clear

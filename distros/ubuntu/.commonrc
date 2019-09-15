@@ -1,7 +1,0 @@
-# settings desired to be the same for bash, zsh, etc, for all types of shell invocations
-
-# karaf
-export KARAF_VERSION="4.2.6"
-if [ -d "$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION" ] ; then
-     export KARAF_HOME="$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION"
-fi
