@@ -117,34 +117,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Common shell files.
-for dotfile in .aliases .function .fzf.zsh .export
+for dotfile in .aliases .function .fzf.zsh .export .gitconfig_secret
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
-# git 
-if which diff-so-fancy > /dev/null; then # see: https://github.com/so-fancy/diff-so-fancy
-	git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-
-	git config --global color.ui true
-
-	git config --global color.diff-highlight.oldNormal    "red bold"
-	git config --global color.diff-highlight.oldHighlight "red bold 52"
-	git config --global color.diff-highlight.newNormal    "green bold"
-	git config --global color.diff-highlight.newHighlight "green bold 22"
-
-	git config --global color.diff.meta       "yellow"
-	git config --global color.diff.frag       "magenta bold"
-	git config --global color.diff.commit     "yellow bold"
-	git config --global color.diff.old        "red bold"
-	git config --global color.diff.new        "green bold"
-	git config --global color.diff.whitespace "red reverse"
-fi
-if which git > /dev/null; then
-	git config --global diff.tool vimdiff
-	git config --global core.autocrlf false
-	git config --global core.safeclrf false
-	git config --global core.eol "clrf"
-fi
 
 # Gruvbox
 [ -f ~/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh ] && source ~/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh
