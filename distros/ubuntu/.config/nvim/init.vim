@@ -5,7 +5,6 @@
 call plug#begin('~/.config/nvim/plugged')
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 " Language server protocol
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
