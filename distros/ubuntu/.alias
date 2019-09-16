@@ -1,24 +1,21 @@
+# copy-paste from stdin and stdout
 if test $(which xsel); then
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
 fi
-
 # grep
 alias cgrep='grep -rIPn --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
 # ls
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
 # less
 alias lessr='less -r'
 alias lessrn='less -rN'
-
 # git
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
 alias gdmsa='git --no-pager diff --name-only HEAD|xargs -I % echo "`git rev-parse --show-toplevel`/%"' # list of modified and staged files with full directory paths.
