@@ -1,5 +1,13 @@
 session_name: fc-hotfix
 windows:
+- window_name: tickets
+  layout: tiled
+  shell_command_before:
+    - cd ~/google-drive/Projects/FarmCentric/Tickets && clear
+- window_name: repos
+  layout: tiled
+  shell_command_before:
+    - cd ~/Documents/repos && clear
 - window_name: fc-hosts
   layout: tiled
   shell_command_before:
@@ -8,7 +16,3 @@ windows:
   layout: tiled
   shell_command_before:
     - cd ~/Documents/repos/fc-portal && clear
-- window_name: tickets
-  layout: tiled
-  shell_command_before:
-    - cd ~/google-drive/Projects/FarmCentric/Tickets && clear

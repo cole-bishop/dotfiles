@@ -20,7 +20,10 @@ Plug 'morhetz/gruvbox'
 " Initialize plugin system
 call plug#end()
 " gruvbox
-let g:gruvbox_termcolors=16
+let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_termcolors = '256'
+set bg=dark
+colorscheme gruvbox
 " Language server customization
 " Required for operations modifying multiple buffers like rename.
 set hidden

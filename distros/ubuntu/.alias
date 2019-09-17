@@ -11,7 +11,7 @@ alias egrep='egrep --color=auto'
 # ls
 alias ls='ls --color=auto'
 alias ll='ls -alF'
-alias la='ls -A'
+alias la='ls -la'
 alias l='ls -CF'
 # less
 alias lessr='less -r'
