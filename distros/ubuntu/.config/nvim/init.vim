@@ -102,12 +102,12 @@ set tabstop=2
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
-" Highlight searches
-set hlsearch
 " Ignore case of searches
 set ignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
+" Clear highlight until next search
+set nohlsearch
 " Always show status line
 set laststatus=2
 " Enable mouse in all modes
