@@ -1,0 +1,2 @@
+#!/bin/bash
+$KARAF_HOME_LOCAL/bin/karaf "$@"

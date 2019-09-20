@@ -2,6 +2,53 @@
   <configuration>
     <logicalmonitor>
       <x>0</x>
+      <y>0</y>
+      <scale>2</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>ACI</vendor>
+          <product>ASUS PB277</product>
+          <serial>0x0001fef1</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.924850463867188</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>1094</x>
+      <y>1440</y>
+      <scale>2</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP-1</connector>
+          <vendor>AUO</vendor>
+          <product>0x2036</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>60.011539459228516</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <disabled>
+      <monitorspec>
+        <connector>DP-1</connector>
+        <vendor>GSM</vendor>
+        <product>LG Ultra HD</product>
+        <serial>0x0002043d</serial>
+      </monitorspec>
+    </disabled>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>0</x>
       <y>720</y>
       <scale>1</scale>
       <monitor>
@@ -97,6 +144,25 @@
       </monitor>
     </logicalmonitor>
     <logicalmonitor>
+      <x>1141</x>
+      <y>2160</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP-1</connector>
+          <vendor>AUO</vendor>
+          <product>0x2036</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>120.01551055908203</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
       <x>0</x>
       <y>720</y>
       <scale>1</scale>
@@ -114,9 +180,29 @@
         </mode>
       </monitor>
     </logicalmonitor>
+  </configuration>
+  <configuration>
     <logicalmonitor>
-      <x>1141</x>
-      <y>2160</y>
+      <x>1920</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-1</connector>
+          <vendor>ACI</vendor>
+          <product>ASUS PB277</product>
+          <serial>0x00012c99</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.598907470703125</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>1319</y>
       <scale>1</scale>
       <primary>yes</primary>
       <monitor>
@@ -127,9 +213,27 @@
           <serial>0x00000000</serial>
         </monitorspec>
         <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>60.011539459228516</rate>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>120.01551055908203</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>239</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>ACI</vendor>
+          <product>VE248</product>
+          <serial>H8LMQS060885</serial>
+        </monitorspec>
+        <mode>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>60</rate>
         </mode>
       </monitor>
     </logicalmonitor>
@@ -169,6 +273,45 @@
           <width>2560</width>
           <height>1440</height>
           <rate>60.011539459228516</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>2</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP-1</connector>
+          <vendor>AUO</vendor>
+          <product>0x2036</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>60.011539459228516</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>2</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>ACI</vendor>
+          <product>ASUS PB277</product>
+          <serial>0x0001fef1</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.924850463867188</rate>
         </mode>
       </monitor>
     </logicalmonitor>
