@@ -97,9 +97,19 @@ set number
 syntax on
 " Highlight current line
 set cursorline
-" Make tabs as wide as two spaces
-set tabstop=2
-" Show “invisible” characters
+" tab configuration
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Ignore case of searches
