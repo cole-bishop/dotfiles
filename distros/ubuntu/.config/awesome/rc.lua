@@ -103,11 +103,11 @@ local volume_up_key    = "XF86AudioRaiseVolume"
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
+    awful.layout.suit.floating,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
@@ -322,7 +322,7 @@ globalkeys = my_table.join(
             if client.focus then client.focus:raise() end
         end,
         {description = "focus right", group = "client"}),
-    awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
+    awful.key({ modkey,           }, "a", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
@@ -501,11 +501,13 @@ globalkeys = my_table.join(
               {description = "copy gtk to terminal", group = "hotkeys"}),
 
     -- User programs
+    --[[
     awful.key({ modkey }, "q", function () awful.spawn(browser) end,
               {description = "run browser", group = "launcher"}),
     awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
               {description = "run gui editor", group = "launcher"}),
-
+    --]]
+    --
     -- Default
     --[[ Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
@@ -520,17 +522,27 @@ globalkeys = my_table.join(
     --]]
     -- alternatively use rofi, a dmenu-like application with more features
     -- check https://github.com/DaveDavenport/rofi for more details
-    --[[ rofi
-    awful.key({ modkey }, "x", function ()
-            os.execute(string.format("rofi -show %s -theme %s",
-            'run', 'dmenu'))
+    -- rofi
+    awful.key({ modkey }, "d", function ()
+            os.execute("rofi -show drun")
         end,
-        {description = "show rofi", group = "launcher"}),
-    --]]
+        {description = "show rofi drun", group = "launcher"}),
+    awful.key({ modkey }, "r", function ()
+            os.execute("rofi -show run")
+        end,
+        {description = "show rofi run", group = "launcher"}),
+    awful.key({ modkey }, "w", function ()
+            os.execute("rofi -show windowcd")
+        end,
+        {description = "show rofi windowcd", group = "launcher"}),
+    awful.key({ modkey }, "f", function ()
+            os.execute("rofi -show window")
+        end,
+        {description = "show rofi window", group = "launcher"})
+    --[[
     -- Prompt
     awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
@@ -591,24 +603,26 @@ for i = 1, 9 do
         descr_toggle_focus = {description = "toggle focused client on tag #", group = "tag"}
     end
     globalkeys = my_table.join(globalkeys,
-        -- View tag only.
+        -- View tag only - across screens.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
+                    for screen = 1, screen.count() do
+                        local tag = awful.tag.gettags(screen)[i]
                         if tag then
-                           tag:view_only()
+                            awful.tag.viewonly(tag)
                         end
+                    end
                   end,
                   descr_view),
-        -- Toggle tag display.
+        -- Toggle tag display - across screens.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
+                    for screen = 1, screen.count() do
+                        local tag = awful.tag.gettags(screen)[i]
+                        if tag then
+                            awful.tag.viewtoggle(tag)
+                        end
+                    end
                   end,
                   descr_toggle),
         -- Move client to tag.
@@ -721,7 +735,7 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c, {size = dpi(16)}) : setup {
+    awful.titlebar(c, {size = dpi(26)}) : setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
