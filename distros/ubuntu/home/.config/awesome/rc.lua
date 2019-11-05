@@ -450,13 +450,19 @@ globalkeys = my_table.join(
             os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-mute {} toggle")
             beautiful.volume.update()
         end,
-        {description = "volume 100%", group = "hotkeys"}),
+        {description = "volume mute toggle", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "0",
         function ()
             os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} 0%")
             beautiful.volume.update()
         end,
         {description = "volume 0%", group = "hotkeys"}),
+    awful.key({ altkey, "Control" }, "m",
+        function ()
+            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} 100%")
+            beautiful.volume.update()
+        end,
+        {description = "volume 100%", group = "hotkeys"}),
 
     -- playerctl audio prev/next/play-pause (used currently with Spotify)
     awful.key({ audio_prev }, audio_prev,
