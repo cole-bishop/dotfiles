@@ -263,7 +263,7 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ altkey }, "p", function() os.execute("flameshot gui") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -433,19 +433,19 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- PulseAudio volume control
-    awful.key({ volume_up_key }, volume_up_key,
+    awful.key({ altkey, "Control" }, "Up",
         function ()
             os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} +1%")
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ volume_down_key }, volume_down_key,
+    awful.key({ altkey, "Control" }, "Down",
         function ()
             os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} -1%")
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ mute_key }, "XF86AudioMute",
+    awful.key({ altkey }, "m",
         function ()
             os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-mute {} toggle")
             beautiful.volume.update()
@@ -465,17 +465,17 @@ globalkeys = my_table.join(
         {description = "volume 100%", group = "hotkeys"}),
 
     -- playerctl audio prev/next/play-pause (used currently with Spotify)
-    awful.key({ audio_prev }, audio_prev,
+    awful.key({ altkey, "Control" }, "Left",
         function ()
             os.execute("playerctl previous")
         end,
         {description = "player previous", group = "hotkeys"}),
-    awful.key({ audio_next }, audio_next,
+    awful.key({ altkey, "Control" }, "Right",
         function ()
             os.execute("playerctl next")
         end,
         {description = "player next", group = "hotkeys"}),
-    awful.key({ audio_play }, audio_play,
+    awful.key({ altkey, "Control" }, "p",
         function ()
             os.execute("playerctl play-pause")
         end,
