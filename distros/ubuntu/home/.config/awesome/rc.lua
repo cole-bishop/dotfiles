@@ -96,6 +96,10 @@ local browser      = "firefox"
 local guieditor    = "code"
 local scrlocker    = "slock systemctl suspend"
 local mute_key     = "XF86AudioMute"
+local audio_prev   = "XF86AudioPrev"
+local audio_next   = "XF86AudioNext"
+local audio_stop   = "XF86AudioStop"
+local audio_play   = "XF86AudioPlay"
 local volume_down_key  = "XF86AudioLowerVolume"
 local volume_up_key    = "XF86AudioRaiseVolume"
 
@@ -428,31 +432,48 @@ globalkeys = my_table.join(
     awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
               {description = "-10%", group = "hotkeys"}),
 
-    -- ALSA & PulseAudio volume control
+    -- PulseAudio volume control
     awful.key({ volume_up_key }, volume_up_key,
         function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
+            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} +1%")
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ volume_down_key }, volume_down_key,
         function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
+            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} -1%")
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ mute_key }, "XF86AudioMute",
         function ()
-            os.execute(string.format("pactl set-sink-mute 0 toggle", beautiful.volume.channel))
+            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-mute {} toggle")
             beautiful.volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "0",
         function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
+            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} 0%")
             beautiful.volume.update()
         end,
         {description = "volume 0%", group = "hotkeys"}),
+
+    -- playerctl audio prev/next/play-pause (used currently with Spotify)
+    awful.key({ audio_prev }, audio_prev,
+        function ()
+            os.execute("playerctl previous")
+        end,
+        {description = "player previous", group = "hotkeys"}),
+    awful.key({ audio_next }, audio_next,
+        function ()
+            os.execute("playerctl next")
+        end,
+        {description = "player next", group = "hotkeys"}),
+    awful.key({ audio_play }, audio_play,
+        function ()
+            os.execute("playerctl play-pause")
+        end,
+        {description = "player play-pause", group = "hotkeys"}),
 
     -- MPD control
     awful.key({ altkey, "Control" }, "Up",
@@ -559,12 +580,14 @@ globalkeys = my_table.join(
 clientkeys = my_table.join(
     awful.key({ altkey, "Shift"   }, "m",      lain.util.magnify_client,
               {description = "magnify client", group = "client"}),
+    --[[
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
+    --]]
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
@@ -689,9 +712,11 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
 
+    --[[
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Firefox" },
       properties = { screen = 1, tag = awful.util.tagnames[1] } },
+    --]]
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
