@@ -5,15 +5,14 @@ if [ -f /usr/bin/nvim ]; then
 else
     EDITOR="vim"
 fi
+# multiple monitor layouts generated from arandr
+if [ -d "$HOME/.screenlayout" ] ; then
+    PATH="$HOME/.screenlayout:$PATH"
+fi
 # karaf custom env variables
 export KARAF_VERSION="4.2.6"
 if [ -d "$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION" ] ; then
      export KARAF_HOME_LOCAL="$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION"
-fi
-# java fx
-export FX_VERSION="13"
-if [ -d "$HOME/.local/lib/javafx-sdk-$FX_VERSION/lib" ] ; then
-     export PATH_TO_FX="$HOME/.local/lib/javafx-sdk-$FX_VERSION/lib"
 fi
 # set PATH so it includes user's private bin if it exists.
 if [ -d "$HOME/.local/bin" ] ; then

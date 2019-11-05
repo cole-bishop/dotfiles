@@ -57,7 +57,12 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once(
+{ 
+    "urxvtd",
+    "unclutter -root",
+    "flatpak run io.github.liberodark.OpenDrive/x86_64/stable" 
+}) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -103,6 +108,8 @@ local audio_play   = "XF86AudioPlay"
 local volume_down_key  = "XF86AudioLowerVolume"
 local volume_up_key    = "XF86AudioRaiseVolume"
 
+-- make sure the following are available via $PATH:
+-- rofi, flameshot, pactl
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
@@ -804,10 +811,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
-autorunApps =
-{
-    "flatpak run io.github.liberodark.OpenDrive/x86_64/stable"
-}
-for app = 1, #autorunApps do
-   awful.util.spawn(autorunApps[app])
-end
