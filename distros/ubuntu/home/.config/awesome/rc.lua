@@ -804,3 +804,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
+autorunApps =
+{
+    "flatpak run io.github.liberodark.OpenDrive/x86_64/stable"
+}
+for app = 1, #autorunApps do
+   awful.util.spawn(autorunApps[app])
+end
