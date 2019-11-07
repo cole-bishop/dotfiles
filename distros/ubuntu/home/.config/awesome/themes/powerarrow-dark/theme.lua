@@ -225,12 +225,15 @@ local bat = lain.widget.bat({
     end
 })
 
--- PulseAudio volume
+-- PulseAudio volume - https://github.com/lcpz/lain/wiki/pulse
 local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.pulse {
     settings = function()
-        vlevel = volume_now.left .. "-" .. volume_now.right .. "% | " .. volume_now.device
-        if volume_now.muted == "yes" then
+        vlevel = volume_now.left .. "-" .. volume_now.right .. "% | " .. volume_now.device .. " "
+        if tonumber(volume_now.left) == nil or tonumber(volume_now.left) == nil then
+            volicon:set_image(theme.widget_vol_no)
+            vlevel = ""
+        elseif volume_now.muted == "yes" then
             volicon:set_image(theme.widget_vol_mute)
         elseif tonumber(volume_now.left) == 0 then
             volicon:set_image(theme.widget_vol_no)
