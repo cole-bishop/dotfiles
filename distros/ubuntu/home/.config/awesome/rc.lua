@@ -5,6 +5,9 @@
 
 --]]
 
+-- Required packages to be $PATH accessible:
+-- rofi, flameshot, pactl, playerctl
+
 -- {{{ Required libraries
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
@@ -16,7 +19,7 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
---local menubar       = require("menubar")
+local volume        = lain.widget.pulse()
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
@@ -108,9 +111,6 @@ local audio_play   = "XF86AudioPlay"
 local volume_down_key  = "XF86AudioLowerVolume"
 local volume_up_key    = "XF86AudioRaiseVolume"
 
--- make sure the following are available via $PATH:
--- rofi, flameshot, pactl
-
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
 awful.layout.layouts = {
@@ -119,7 +119,7 @@ awful.layout.layouts = {
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.floating,
-    --awful.layout.suit.fair,
+    awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
@@ -440,36 +440,36 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- PulseAudio volume control
-    awful.key({ altkey, "Control" }, "Up",
+    awful.key({ altkey, }, "Up",
         function ()
-            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} +1%")
-            beautiful.volume.update()
+            os.execute(string.format("pactl set-sink-volume %s +1%%", volume.device))
+            volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "Down",
+    awful.key({ altkey, }, "Down",
         function ()
-            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} -1%")
-            beautiful.volume.update()
+            os.execute(string.format("pactl set-sink-volume %s -1%%", volume.device))
+            volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ altkey }, "m",
         function ()
-            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-mute {} toggle")
-            beautiful.volume.update()
+            os.execute(string.format("pactl set-sink-mute %s toggle", volume.device))
+            volume.update()
         end,
         {description = "volume mute toggle", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "0",
-        function ()
-            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} 0%")
-            beautiful.volume.update()
-        end,
-        {description = "volume 0%", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "m",
         function ()
-            os.execute("pactl list sinks|grep '^Sink #'|grep -oP '\\d+'|xargs -L 1 -I {} pactl set-sink-volume {} 100%")
-            beautiful.volume.update()
+            os.execute(string.format("pactl set-sink-volume %s 100%%", volume.device))
+            volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
+    awful.key({ altkey, "Control" }, "0",
+        function ()
+            os.execute(string.format("pactl set-sink-volume %s 0%%", volume.device))
+            volume.update()
+        end,
+        {description = "volume 0%", group = "hotkeys"}),
 
     -- playerctl audio prev/next/play-pause (used currently with Spotify)
     awful.key({ altkey, "Control" }, "Left",
@@ -487,45 +487,6 @@ globalkeys = my_table.join(
             os.execute("playerctl play-pause")
         end,
         {description = "player play-pause", group = "hotkeys"}),
-
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            os.execute("mpc toggle")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc toggle", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            os.execute("mpc stop")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc stop", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            os.execute("mpc prev")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc prev", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            os.execute("mpc next")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc next", group = "widgets"}),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end,
-        {description = "mpc on/off", group = "widgets"}),
 
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,

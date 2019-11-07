@@ -9,6 +9,7 @@ local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
+local lgi = require("lgi")
 local dpi   = require("beautiful.xresources").apply_dpi
 
 local os = os
@@ -17,7 +18,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Terminus 16"
+theme.font                                      = "Terminus 15"
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#FB4934"
 theme.fg_urgent                                 = "#CC9393"
@@ -104,7 +105,7 @@ local clock = awful.widget.watch(
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = "Terminus 10",
+        font = "Terminus 15",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
@@ -224,32 +225,32 @@ local bat = lain.widget.bat({
     end
 })
 
--- ALSA volume
+-- PulseAudio volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.alsa({
+theme.volume = lain.widget.pulse {
     settings = function()
-        if volume_now.status == "off" then
+        vlevel = volume_now.left .. "-" .. volume_now.right .. "% | " .. volume_now.device
+        if volume_now.muted == "yes" then
             volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
+        elseif tonumber(volume_now.left) == 0 then
             volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
+        elseif tonumber(volume_now.left) <= 50 then
             volicon:set_image(theme.widget_vol_low)
         else
             volicon:set_image(theme.widget_vol)
         end
-
-        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+        widget:set_markup(markup.font(theme.font,  vlevel))
     end
-})
+}
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. net_now.received)
+                          markup("#98971a", " " .. net_now.received)
                           .. " " ..
-                          markup("#46A8C3", " " .. net_now.sent .. " ")))
+                          markup("#458588", " " .. net_now.sent .. " ")))
     end
 })
 
@@ -290,7 +291,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(35), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(30), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -307,12 +308,9 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,
-            --[[
-            arrl_ld,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            arrl_dl,
-            --]]
+            -- arrl_ld,
+            -- wibox.container.background(mpdicon, theme.bg_focus),
+            -- wibox.container.background(theme.mpd.widget, theme.bg_focus),
             arrl_ld,
             wibox.container.background(volicon, theme.bg_focus),
             wibox.container.background(theme.volume.widget, theme.bg_focus),
