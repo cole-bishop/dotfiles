@@ -9,7 +9,7 @@ local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
-local lgi = require("lgi")
+local lgi   = require("lgi")
 local dpi   = require("beautiful.xresources").apply_dpi
 
 local os = os
@@ -20,21 +20,21 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 
 -- fonts
-theme.font          = "Latin Modern Mono Caps 12"
-theme.hotkeys_font  = "Latin Modern Mono Bold 12"
+theme.font          = "Latin Modern Mono Caps 13"
+theme.hotkeys_font  = "Latin Modern Mono Bold 13"
 theme.hotkeys_description_font = theme.font
 
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#FB4934"
 theme.fg_urgent                                 = "#CC9393"
-theme.bg_normal                                 = "#1A1A1A"
+theme.bg_normal                                 = "#1d2021"
 theme.bg_focus                                  = "#313131"
-theme.bg_urgent                                 = "#1A1A1A"
+theme.bg_urgent                                 = theme.bg_normal
 theme.border_width                              = dpi(0)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
 theme.border_marked                             = "#CC9393"
-theme.tasklist_bg_focus                         = "#1A1A1A"
+theme.tasklist_bg_focus                         = theme.bg_normal
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
