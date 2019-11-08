@@ -18,14 +18,19 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Terminus 15"
+
+-- fonts
+theme.font          = "Latin Modern Mono Caps 12"
+theme.hotkeys_font  = "Latin Modern Mono Bold 12"
+theme.hotkeys_description_font = theme.font
+
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#FB4934"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_normal                                 = "#1A1A1A"
 theme.bg_focus                                  = "#313131"
 theme.bg_urgent                                 = "#1A1A1A"
-theme.border_width                              = dpi(1)
+theme.border_width                              = dpi(0)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
 theme.border_marked                             = "#CC9393"
