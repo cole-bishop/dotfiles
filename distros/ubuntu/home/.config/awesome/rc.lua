@@ -63,8 +63,7 @@ end
 run_once(
 { 
     "urxvtd",
-    "unclutter -root",
-    "flatpak run io.github.liberodark.OpenDrive/x86_64/stable" 
+    "unclutter -root"
 }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
