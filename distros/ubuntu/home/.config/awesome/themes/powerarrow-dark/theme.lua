@@ -5,6 +5,13 @@
 
 --]]
 
+--[[
+  VARIABLES  
+]]
+-- these can be observed from 'nmcli device'
+local device_ethernet   = "enp0s31f6"
+local device_wifi       = "wlp2s0"
+
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
@@ -62,7 +69,13 @@ theme.widget_battery_empty                      = theme.dir .. "/icons/battery_e
 theme.widget_mem                                = theme.dir .. "/icons/mem.png"
 theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
-theme.widget_net                                = theme.dir .. "/icons/net.png"
+theme.widget_wireless_0                         = theme.dir .. "/icons/wireless_0.png"
+theme.widget_wireless_1                         = theme.dir .. "/icons/wireless_1.png"
+theme.widget_wireless_2                         = theme.dir .. "/icons/wireless_2.png"
+theme.widget_wireless_3                         = theme.dir .. "/icons/wireless_3.png"
+theme.widget_wireless_na                        = theme.dir .. "/icons/wireless_na.png"
+theme.widget_wired                              = theme.dir .. "/icons/wired.png"
+theme.widget_wired_na                           = theme.dir .. "/icons/wired_na.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
 theme.widget_music                              = theme.dir .. "/icons/note.png"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
@@ -252,13 +265,40 @@ theme.volume = lain.widget.pulse {
 }
 
 -- Net
-local neticon = wibox.widget.imagebox(theme.widget_net)
+local wifiicon = wibox.widget.imagebox()
+local ethicon = wibox.widget.imagebox()
 local net = lain.widget.net({
+    notify = "off",
+    wifi_state = "on",
+    eth_state = "on",
     settings = function()
-        widget:set_markup(markup.font(theme.font,
-                          markup("#98971a", " " .. net_now.received)
-                          .. " " ..
-                          markup("#458588", " " .. net_now.sent .. " ")))
+        -- device strings can be seen with 'nmcli device'
+        local eth0 = net_now.devices[device_ethernet]
+        if eth0 then
+            if eth0.ethernet then
+                ethicon:set_image(theme.wired)
+            else
+                ethicon:set_image()
+            end
+        end
+
+        local wlan0 = net_now.devices[device_wifi]
+        if wlan0 then
+            if wlan0.wifi then
+                local signal = wlan0.signal
+                if signal < -83 then
+                    wifiicon:set_image(theme.widget_wireless_0)
+                elseif signal < -70 then
+                    wifiicon:set_image(theme.widget_wireless_1)
+                elseif signal < -53 then
+                    wifiicon:set_image(theme.widget_wireless_2)
+                elseif signal >= -53 then
+                    wifiicon:set_image(theme.widget_wireless_3)
+                end
+            else
+                wifiicon:set_image()
+            end
+        end
     end
 })
 
@@ -340,7 +380,8 @@ function theme.at_screen_connect(s)
             baticon,
             bat.widget,
             arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
+            wibox.container.background(wifiicon, theme.bg_focus),
+            wibox.container.background(ethicon, theme.bg_focus),
             wibox.container.background(net.widget, theme.bg_focus),
             arrl_dl,
             clock,
