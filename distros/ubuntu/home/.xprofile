@@ -5,4 +5,4 @@ which nm-applet && nm-applet & # wifi
 which blueman-applet && blueman-applet & # bluetooth
 which pasystray && pasystray & # audio
 which flatpak && flatpak run io.github.liberodark.OpenDrive/x86_64/stable & # google drive
-which xfce-power-manager && xfce-power-manager & # power
+which xfce4-power-manager && xfce4-power-manager & # power
