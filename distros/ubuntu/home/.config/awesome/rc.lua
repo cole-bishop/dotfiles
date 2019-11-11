@@ -439,25 +439,25 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- PulseAudio volume control
-    awful.key({ altkey, }, "Up",
+    awful.key({ altkey, "Control" }, "Up",
         function ()
             os.execute(string.format("pactl set-sink-volume %s +1%%", volume.device))
             volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey, }, "Down",
+    awful.key({ altkey, "Control" }, "Down",
         function ()
             os.execute(string.format("pactl set-sink-volume %s -1%%", volume.device))
             volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m",
+    awful.key({ altkey, "Control" }, "m",
         function ()
             os.execute(string.format("pactl set-sink-mute %s toggle", volume.device))
             volume.update()
         end,
         {description = "volume mute toggle", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "m",
+    awful.key({ altkey, "Control" }, "1",
         function ()
             os.execute(string.format("pactl set-sink-volume %s 100%%", volume.device))
             volume.update()
