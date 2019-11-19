@@ -269,11 +269,11 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("flameshot gui") end,
+    awful.key({ modkey }, "p", function() os.execute("flameshot gui") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ modkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -425,12 +425,14 @@ globalkeys = my_table.join(
               {description = "dropdown application", group = "launcher"}),
 
     -- Widgets popups
+    --[[
     awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
               {description = "show calendar", group = "widgets"}),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
               {description = "show filesystem", group = "widgets"}),
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
+    --]]
 
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
@@ -439,31 +441,31 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- PulseAudio volume control
-    awful.key({ altkey, "Control" }, "Up",
+    awful.key({ modkey, "Control" }, "Up",
         function ()
             os.execute(string.format("pactl set-sink-volume %s +1%%", volume.device))
             volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "Down",
+    awful.key({ modkey, "Control" }, "Down",
         function ()
             os.execute(string.format("pactl set-sink-volume %s -1%%", volume.device))
             volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "m",
+    awful.key({ modkey, "Control" }, "m",
         function ()
             os.execute(string.format("pactl set-sink-mute %s toggle", volume.device))
             volume.update()
         end,
         {description = "volume mute toggle", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "1",
+    awful.key({ modkey, "Control" }, "1",
         function ()
             os.execute(string.format("pactl set-sink-volume %s 100%%", volume.device))
             volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "0",
+    awful.key({ modkey, "Control" }, "0",
         function ()
             os.execute(string.format("pactl set-sink-volume %s 0%%", volume.device))
             volume.update()
@@ -471,17 +473,17 @@ globalkeys = my_table.join(
         {description = "volume 0%", group = "hotkeys"}),
 
     -- playerctl audio prev/next/play-pause (used currently with Spotify)
-    awful.key({ altkey, "Control" }, "Left",
+    awful.key({ modkey, "Control" }, "Left",
         function ()
             os.execute("playerctl previous")
         end,
         {description = "player previous", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "Right",
+    awful.key({ modkey, "Control" }, "Right",
         function ()
             os.execute("playerctl next")
         end,
         {description = "player next", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "p",
+    awful.key({ modkey, "Control" }, "p",
         function ()
             os.execute("playerctl play-pause")
         end,

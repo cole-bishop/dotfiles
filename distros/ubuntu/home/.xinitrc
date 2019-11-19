@@ -4,7 +4,7 @@
 [ -f /etc/xprofile ] && . /etc/xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
 
-# /etc/X11/xinit/xinitrc
+# /etc/X11/xinit/xinitrc from here to end.
 #
 # global xinitrc file, used by all X sessions started by xinit (startx)
 

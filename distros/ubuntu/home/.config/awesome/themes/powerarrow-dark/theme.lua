@@ -27,8 +27,12 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 
 -- fonts
-theme.font          = "Latin Modern Mono Caps 13"
-theme.hotkeys_font  = "Latin Modern Mono Bold 13"
+local theme_font_type          = "Latin Modern Mono Caps"
+local theme_font_size          = "13"
+local hotkeys_font_type          = "Latin Modern Mono Bold"
+local hotkeys_font_size          = "13"
+theme.font          = theme_font_type .. " " .. theme_font_size
+theme.hotkeys_font  = hotkeys_font_type .. " " .. hotkeys_font_size
 theme.hotkeys_description_font = theme.font
 
 theme.fg_normal                                 = "#DDDDFF"
@@ -121,12 +125,12 @@ local clock = awful.widget.watch(
 
 -- Calendar
 theme.cal = lain.widget.cal({
-    attach_to = { clock },
-    notification_preset = {
-        font = "Terminus 15",
+    attach_to = { clock }
+    --[[notification_preset = {
+        font = hotkeys_font_type .. " 9"
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
-    }
+    }--]]
 })
 
 -- Mail IMAP check
