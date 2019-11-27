@@ -273,7 +273,7 @@ globalkeys = my_table.join(
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ modkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ modkey, altkey }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -294,13 +294,13 @@ globalkeys = my_table.join(
               {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
-    awful.key({ altkey,           }, "j",
+    awful.key({ altkey, modkey    }, "j",
         function ()
             awful.client.focus.byidx( -1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ altkey,           }, "k",
+    awful.key({ altkey, modkey     }, "k",
         function ()
             awful.client.focus.byidx(1)
         end,
@@ -421,8 +421,8 @@ globalkeys = my_table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Dropdown application
-    awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
-              {description = "dropdown application", group = "launcher"}),
+    -- awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
+    --           {description = "dropdown application", group = "launcher"}),
 
     -- Widgets popups
     --[[
@@ -441,31 +441,31 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- PulseAudio volume control
-    awful.key({ modkey, "Control" }, "Up",
+    awful.key({ modkey, altkey }, "Up",
         function ()
             os.execute(string.format("pactl set-sink-volume %s +1%%", volume.device))
             volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "Down",
+    awful.key({ modkey, altkey }, "Down",
         function ()
             os.execute(string.format("pactl set-sink-volume %s -1%%", volume.device))
             volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "m",
+    awful.key({ modkey, altkey }, "m",
         function ()
             os.execute(string.format("pactl set-sink-mute %s toggle", volume.device))
             volume.update()
         end,
         {description = "volume mute toggle", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "1",
+    awful.key({ modkey, altkey }, "1",
         function ()
             os.execute(string.format("pactl set-sink-volume %s 100%%", volume.device))
             volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "0",
+    awful.key({ modkey, altkey }, "0",
         function ()
             os.execute(string.format("pactl set-sink-volume %s 0%%", volume.device))
             volume.update()
@@ -473,17 +473,17 @@ globalkeys = my_table.join(
         {description = "volume 0%", group = "hotkeys"}),
 
     -- playerctl audio prev/next/play-pause (used currently with Spotify)
-    awful.key({ modkey, "Control" }, "Left",
+    awful.key({ modkey, altkey }, "Left",
         function ()
             os.execute("playerctl previous")
         end,
         {description = "player previous", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "Right",
+    awful.key({ modkey, altkey }, "Right",
         function ()
             os.execute("playerctl next")
         end,
         {description = "player next", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "p",
+    awful.key({ modkey, altkey }, "p",
         function ()
             os.execute("playerctl play-pause")
         end,
@@ -553,7 +553,7 @@ globalkeys = my_table.join(
 )
 
 clientkeys = my_table.join(
-    awful.key({ altkey, "Shift"   }, "m",      lain.util.magnify_client,
+    awful.key({ altkey, modkey   }, "i",      lain.util.magnify_client,
               {description = "magnify client", group = "client"}),
     --[[
     awful.key({ modkey,           }, "f",

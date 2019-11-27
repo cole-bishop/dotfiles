@@ -27,13 +27,13 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 
 -- fonts
-local theme_font_type          = "Latin Modern Mono Caps"
-local theme_font_size          = "13"
-local hotkeys_font_type          = "Latin Modern Mono Bold"
-local hotkeys_font_size          = "13"
-theme.font          = theme_font_type .. " " .. theme_font_size
-theme.hotkeys_font  = hotkeys_font_type .. " " .. hotkeys_font_size
-theme.hotkeys_description_font = theme.font
+local theme_font_type                       = "Latin Modern Mono Caps"
+local theme_font_size                       = "13"
+local hotkeys_font_type                     = "Latin Modern Mono Bold"
+local hotkeys_font_size                     = "13"
+theme.font                                  = theme_font_type .. " " .. theme_font_size
+theme.hotkeys_font                          = hotkeys_font_type .. " " .. hotkeys_font_size
+theme.hotkeys_description_font              = theme.font
 
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#FB4934"
@@ -155,46 +155,46 @@ theme.mail = lain.widget.imap({
 --]]
 
 -- MPD
-local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(my_table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        os.execute("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        os.execute("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        os.execute("mpc next")
-        theme.mpd.update()
-    end)))
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-        elseif mpd_now.state == "pause" then
-            artist = " mpd "
-            title  = "paused "
-        else
-            artist = ""
-            title  = ""
-            mpdicon:set_image(theme.widget_music)
-        end
+-- local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
+-- local mpdicon = wibox.widget.imagebox(theme.widget_music)
+-- mpdicon:buttons(my_table.join(
+--     awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
+--     awful.button({ }, 1, function ()
+--         os.execute("mpc prev")
+--         theme.mpd.update()
+--     end),
+--     awful.button({ }, 2, function ()
+--         os.execute("mpc toggle")
+--         theme.mpd.update()
+--     end),
+--     awful.button({ }, 3, function ()
+--         os.execute("mpc next")
+--         theme.mpd.update()
+--     end)))
+-- theme.mpd = lain.widget.mpd({
+--     settings = function()
+--         if mpd_now.state == "play" then
+--             artist = " " .. mpd_now.artist .. " "
+--             title  = mpd_now.title  .. " "
+--             mpdicon:set_image(theme.widget_music_on)
+--         elseif mpd_now.state == "pause" then
+--             artist = " mpd "
+--             title  = "paused "
+--         else
+--             artist = ""
+--             title  = ""
+--             mpdicon:set_image(theme.widget_music)
+--         end
 
-        widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
-    end
-})
+--         widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
+--     end
+-- })
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        widget:set_markup(markup.font(theme.font, " " .. string.format("%0.2f", tonumber(mem_now.used) / 953.674) .. "GB "))
     end
 })
 
@@ -248,25 +248,25 @@ local bat = lain.widget.bat({
 })
 
 -- PulseAudio volume - https://github.com/lcpz/lain/wiki/pulse
-local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.pulse {
-    settings = function()
-        vlevel = volume_now.left .. "-" .. volume_now.right .. "% | " .. volume_now.device .. " "
-        if tonumber(volume_now.left) == nil or tonumber(volume_now.left) == nil then
-            volicon:set_image(theme.widget_vol_no)
-            vlevel = ""
-        elseif volume_now.muted == "yes" then
-            volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.left) == 0 then
-            volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.left) <= 50 then
-            volicon:set_image(theme.widget_vol_low)
-        else
-            volicon:set_image(theme.widget_vol)
-        end
-        widget:set_markup(markup.font(theme.font,  vlevel))
-    end
-}
+-- local volicon = wibox.widget.imagebox(theme.widget_vol)
+-- theme.volume = lain.widget.pulse {
+--     settings = function()
+--         vlevel = volume_now.left .. "-" .. volume_now.right .. "% | " .. volume_now.device .. " " .. vole 
+--         if tonumber(volume_now.left) == nil or tonumber(volume_now.left) == nil then
+--             volicon:set_image(theme.widget_vol_no)
+--             vlevel = ""
+--         elseif volume_now.muted == "yes" then
+--             volicon:set_image(theme.widget_vol_mute)
+--         elseif tonumber(volume_now.left) == 0 then
+--             volicon:set_image(theme.widget_vol_no)
+--         elseif tonumber(volume_now.left) <= 50 then
+--             volicon:set_image(theme.widget_vol_low)
+--         else
+--             volicon:set_image(theme.widget_vol)
+--         end
+--         widget:set_markup(markup.font(theme.font,  vlevel))
+--     end
+-- }
 
 -- Net
 local wifiicon = wibox.widget.imagebox()
@@ -356,26 +356,29 @@ function theme.at_screen_connect(s)
             spr,
         },
         s.mytasklist, -- Middle widget
-        { -- Right widgets
+        { --[[ Right widgets.
+            To use the others, place the following
+            below "spr" at the desired location:
+            PulseAudio volume:
+            -- wibox.container.background(volicon, theme.bg_focus),
+            -- wibox.container.background(theme.volume.widget, theme.bg_focus),
+            --]]
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,
             arrl_ld,
-            wibox.container.background(volicon, theme.bg_focus),
-            wibox.container.background(theme.volume.widget, theme.bg_focus),
+            wibox.container.background(memicon, theme.bg_focus),
+            wibox.container.background(mem.widget, theme.bg_focus),
             arrl_dl,
-            memicon,
-            mem.widget,
+            wibox.container.background(cpuicon, theme.bg_normal),
+            wibox.container.background(cpu.widget, theme.bg_normal),
             arrl_ld,
-            wibox.container.background(cpuicon, theme.bg_focus),
-            wibox.container.background(cpu.widget, theme.bg_focus),
+            wibox.container.background(tempicon, theme.bg_focus),
+            wibox.container.background(temp.widget, theme.bg_focus),
             arrl_dl,
-            tempicon,
-            temp.widget,
+            wibox.container.background(clock, theme.bg_normal),
             arrl_ld,
-            wibox.container.background(clock, theme.bg_focus),
-            arrl_dl,
-            wibox.container.background(s.mylayoutbox, theme.bg_normal),
+            wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }
 end

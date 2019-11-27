@@ -1,28 +1,30 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Ensure oh-my-zsh is installed.
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
+# Ensure oh-my-zsh is installed. Can be left uncommented
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+[[ -d "$HOME/.oh-my-zsh" ]] && export ZSH="$HOME/.oh-my-zsh"
 
-# Use zplug as universal zsh plugin manager
-if [[ -x "$HOME/.zplug/autoload/zplug" ]] then
-	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+# Get zplug as universal zsh plugin manager. Can be left uncommented
+# if [[ -x "$HOME/.zplug/autoload/zplug" ]] then
+# 	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+# fi
+
+if [[ -f "$HOME/.zplug/init.zsh" ]] then
+    source "$HOME/.zplug/init.zsh"
+    zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+    zplug "plugins/git", from:oh-my-zsh
+    zplug "plugins/battery", from:oh-my-zsh
+    zplug "plugins/tmux", from:oh-my-zsh
+    zplug "plugins/docker", from:oh-my-zsh
+    zplug "plugins/docker-compose", from:oh-my-zsh
+    zplug 'wfxr/forgit'
+    zplug "zsh-users/zsh-syntax-highlighting", defer:2
+    zplug "mafredri/zsh-async", from:github
+    zplug load
 fi
-
-source ~/.zplug/init.zsh
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/battery", from:oh-my-zsh
-zplug "plugins/tmux", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/docker-compose", from:oh-my-zsh
-zplug 'wfxr/forgit'
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "mafredri/zsh-async", from:github
-zplug load
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -84,7 +86,7 @@ ZSH_THEME="spaceship"
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git battery)
 
-source $ZSH/oh-my-zsh.sh
+[[ -f "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
