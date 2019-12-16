@@ -520,19 +520,19 @@ globalkeys = my_table.join(
     -- check https://github.com/DaveDavenport/rofi for more details
     -- rofi
     awful.key({ modkey }, "d", function ()
-            os.execute("rofi -show drun")
+            os.execute("rofi -show drun -width 95")
         end,
         {description = "show rofi drun", group = "launcher"}),
     awful.key({ modkey }, "r", function ()
-            os.execute("rofi -show run")
+            os.execute("rofi -show run -width 95")
         end,
         {description = "show rofi run", group = "launcher"}),
     awful.key({ modkey }, "w", function ()
-            os.execute("rofi -show windowcd")
+            os.execute("rofi -show windowcd -width 95")
         end,
         {description = "show rofi windowcd", group = "launcher"}),
     awful.key({ modkey }, "f", function ()
-            os.execute("rofi -show window")
+            os.execute("rofi -show window -width 95")
         end,
         {description = "show rofi window", group = "launcher"})
     --[[
