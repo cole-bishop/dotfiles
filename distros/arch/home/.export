@@ -25,7 +25,7 @@ fi
 
 # set XDG configuration home.
 if [ -d "$HOME/.config" ] ; then
-    expor XDG_CONFIG_HOME="$HOME/.config"
+    export XDG_CONFIG_HOME="$HOME/.config"
 fi
 
 # Prefer US English and use UTF-8.
