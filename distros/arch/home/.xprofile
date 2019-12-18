@@ -1,0 +1,5 @@
+#!/bin/sh
+
+which nm-applet && nm-applet & # wifi
+which blueman-applet && blueman-applet & # bluetooth
+which pasystray && pasystray & # audio
