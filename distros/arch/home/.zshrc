@@ -47,6 +47,8 @@ do
 done
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && . /usr/share/fzf/completion.zsh
 # tmuxp (install with "pip install --user tmuxp")
 [ -d ~/.tmuxp ] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
