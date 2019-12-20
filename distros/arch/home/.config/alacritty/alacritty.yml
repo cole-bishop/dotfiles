@@ -2,7 +2,7 @@ font:
   size: 10.0
   normal:
     family: SourceCodePro
-    style: Regular
+    style: Bold
 # Colors (Gruvbox dark)
 colors:
   # Default colors

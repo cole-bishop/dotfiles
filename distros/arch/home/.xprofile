@@ -5,3 +5,4 @@ which blueman-applet && blueman-applet & # bluetooth
 which pasystray && pasystray & # audio
 which powerkit && powerkit & # power
 which cbatticon && cbatticon -x 'powerkit --config' & # power systray icon
+which flameshot && flameshot & # screenshot
