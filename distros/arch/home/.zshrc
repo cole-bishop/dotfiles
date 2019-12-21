@@ -10,12 +10,15 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# ssh agent
+which ssh-agent > /dev/null && eval `ssh-agent` > /dev/null
+
 # Path to your oh-my-zsh installation.
-[[ -d "$HOME/.oh-my-zsh" ]] && export ZSH="$HOME/.oh-my-zsh"
-
-plugins=()
-
-source $ZSH/oh-my-zsh.sh
+if [[ -d "$HOME/.oh-my-zsh" ]] then
+  export ZSH="$HOME/.oh-my-zsh"
+  plugins=()
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # Get zplug as universal zsh plugin manager. Can be left uncommented
 # if [[ -x "$HOME/.zplug/autoload/zplug" ]] then
