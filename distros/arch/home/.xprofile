@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Start systray applets in the background.
 which nm-applet && nm-applet & # wifi
 which blueman-applet && blueman-applet & # bluetooth
 which pasystray && pasystray & # audio
@@ -7,3 +8,6 @@ which powerkit && powerkit & # power
 which cbatticon && cbatticon -x 'powerkit --config' & # power systray icon
 which flameshot && flameshot & # screenshot
 which clight && clight & # auto screen brightness
+
+# Set primary display resolution to 1920x1080.
+xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal
