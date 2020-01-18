@@ -25,8 +25,8 @@ fi
 # 	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 # fi
 
-if [[ -f "$HOME/.zplug/init.zsh" ]] || [[ -f /usr/share/zsh/scripts/zplug/init.zsh ]] then
-    source "$HOME/.zplug/init.zsh"
+if [[ ( -f "$HOME/.zplug/init.zsh" ]] || [[ -f "/usr/share/zsh/scripts/zplug/init.zsh" ) ]] then
+    source "$HOME/.zplug/init.zsh" > /dev/null 2>&1 || source "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
     zplug "plugins/git", from:oh-my-zsh
     zplug "plugins/battery", from:oh-my-zsh
