@@ -28,6 +28,8 @@ fi
 if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh" ) ]] then
     source "$HOME/.zplug/init.zsh" > /dev/null 2>&1 || source "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+    # For spaceship configuration
+    source "$HOME/.spaceship-prompt/settings.zsh"
     zplug "plugins/git", from:oh-my-zsh
     zplug "plugins/battery", from:oh-my-zsh
     zplug "plugins/tmux", from:oh-my-zsh
