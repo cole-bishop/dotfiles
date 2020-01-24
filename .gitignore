@@ -1,1 +1,2 @@
 distros/common/home/.tmux/plugins/*
+distros/common/home/.tmux/resurrect/*
