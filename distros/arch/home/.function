@@ -43,3 +43,10 @@ function fs() {
 function mkd() {
 	mkdir -p "$@" && cd "$_";
 }
+
+# To use java jar as cli tool.
+# Place executable jars into $HOME/.tools/cli/java/jars,
+# like bnd, and use like 'jjar bnd version'.
+function jjar() {
+  java -jar "$HOME/.tools/cli/java/jars/$1" "${@:2}"  
+}
