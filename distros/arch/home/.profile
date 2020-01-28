@@ -9,4 +9,3 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-bindkey "^[[3~" delete-char
