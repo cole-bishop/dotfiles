@@ -46,7 +46,7 @@ fi
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
-for dotfile in .alias .function .export
+for dotfile in .alias .function .export .profile .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
