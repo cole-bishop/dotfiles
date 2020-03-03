@@ -22,7 +22,12 @@ function o() {
 		open "$@";
 	fi;
 }
-# Run `dig` and display the most useful info
+# Puts a random UUID on the clipboard.
+function gimmeUuid() {
+  uuidgen|tr -d '\n'|xsel --clipboard --input
+}
+# Run `dig` and display the most useful info.
+# Or use `drill` instead.
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;
 }

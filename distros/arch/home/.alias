@@ -20,4 +20,13 @@ alias lessrn='less -rN'
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
 alias gdmsa='git --no-pager diff --name-only HEAD|xargs -I % echo "`git rev-parse --show-toplevel`/%"' # list of modified and staged files with full directory paths.
 alias glolsa='glols --all' # for use with oh-my-zsh git alias.
-alias glo='forgit::log'
+# override https://github.com/jhillyerd/plugin-git aliases 
+# with those from https://github.com/wfxr/forgit.
+alias "ga"='forgit::add'
+alias "grh"='forgit::reset::head'
+alias "glo"='forgit::log'
+alias "gd"='forgit::diff'
+alias "gi"='forgit::ignore'
+alias "gcf"='forgit::restore'
+alias "gclean"='forgit::clean'
+alias "gss"='forgit::stash::show'
