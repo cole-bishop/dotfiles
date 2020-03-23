@@ -55,3 +55,7 @@ function mkd() {
 function jjar() {
   java -jar "$HOME/.tools/cli/java/jars/$1" "${@:2}"  
 }
+# Show wifi password for given SSID name.
+function passwordForSsid() {
+  nmcli --show-secrets connection show "$1"|grep wireless-security.psk:
+}
