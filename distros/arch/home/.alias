@@ -30,3 +30,5 @@ alias "gi"='forgit::ignore'
 alias "gcf"='forgit::restore'
 alias "gclean"='forgit::clean'
 alias "gss"='forgit::stash::show'
+# tar aliases
+alias "tar.bz2.unzip"="tar -xvjf"

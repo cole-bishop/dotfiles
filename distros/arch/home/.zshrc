@@ -10,9 +10,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-# ssh agent
-which ssh-agent > /dev/null && eval `ssh-agent` > /dev/null
-
 # Path to your oh-my-zsh installation.
 if [[ -d "$HOME/.oh-my-zsh" ]] then
   export ZSH="$HOME/.oh-my-zsh"
@@ -50,10 +47,6 @@ for dotfile in .alias .function .export .profile .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && . /usr/share/fzf/completion.zsh
 # tmuxp (install with "pip install --user tmuxp")
 [ -d ~/.tmuxp ] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
