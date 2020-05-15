@@ -35,7 +35,7 @@ if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug "plugins/tmux", from:oh-my-zsh
     zplug "plugins/docker", from:oh-my-zsh
     zplug "plugins/docker-compose", from:oh-my-zsh
-    zplug 'wfxr/forgit'
+    zplug "wfxr/forgit"
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
     zplug "mafredri/zsh-async", from:github
     zplug load

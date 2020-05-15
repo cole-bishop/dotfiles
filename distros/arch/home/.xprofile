@@ -9,6 +9,7 @@ which cbatticon && cbatticon -x 'powerkit --config' & # power systray icon
 which flameshot && flameshot & # screenshot
 which clight && clight & # auto screen brightness
 which megasync && megasync & # cloud
+which redshift-gtk && redshift-gtk & # nigthlight
 [[ -f $HOME/.conky/Conky-Minimalism/startup.sh ]] && . $HOME/.conky/Conky-Minimalism/startup.sh &
 
 # Set primary display resolution to 1920x1080.
