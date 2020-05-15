@@ -22,7 +22,12 @@ function o() {
 		open "$@";
 	fi;
 }
-# Run `dig` and display the most useful info
+# Puts a random UUID on the clipboard.
+function gimmeUuid() {
+  uuidgen|tr -d '\n'|xsel --clipboard --input
+}
+# Run `dig` and display the most useful info.
+# Or use `drill` instead.
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;
 }
@@ -49,4 +54,8 @@ function mkd() {
 # like bnd, and use like 'jjar bnd version'.
 function jjar() {
   java -jar "$HOME/.tools/cli/java/jars/$1" "${@:2}"  
+}
+# Show wifi password for given SSID name.
+function passwordForSsid() {
+  nmcli --show-secrets connection show "$1"|grep wireless-security.psk:
 }
