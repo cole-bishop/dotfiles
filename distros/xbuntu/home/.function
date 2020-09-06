@@ -59,3 +59,11 @@ function jjar() {
 function passwordForSsid() {
   nmcli --show-secrets connection show "$1"|grep wireless-security.psk:
 }
+# Show manually installed packages for xbuntu/debian.
+function listManuallyInstalledPackagesApt() {
+  comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
+}
+# Show manually installed packages for brew.
+function listManuallyInstalledPackagesBrew() {
+  brew list|sed 's/  /\\n/g'
+}
