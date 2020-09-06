@@ -46,13 +46,10 @@
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="string" value="xflock4"/>
-      <property name="&lt;Super&gt;f" type="string" value="exo-open --launch FileManager"/>
       <property name="&lt;Super&gt;4" type="string" value="libreoffice --calc"/>
       <property name="&lt;Alt&gt;F1" type="string" value="xfce4-popup-applicationsmenu"/>
-      <property name="&lt;Super&gt;w" type="string" value="exo-open --launch WebBrowser"/>
       <property name="&lt;Super&gt;l" type="string" value="xflock4"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="exo-open --launch TerminalEmulator"/>
-      <property name="&lt;Super&gt;r" type="string" value="xfce4-appfinder"/>
       <property name="XF86Music" type="string" value="parole"/>
       <property name="Print" type="string" value="xfce4-screenshooter -f"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Escape" type="string" value="xkill"/>
@@ -78,6 +75,10 @@
       <property name="XF86WWW" type="string" value="exo-open --launch WebBrowser"/>
       <property name="&lt;Super&gt;3" type="string" value="libreoffice --writer"/>
       <property name="override" type="bool" value="true"/>
+      <property name="&lt;Super&gt;f" type="string" value="rofi -show  window  -wdith 95 -show-icons"/>
+      <property name="&lt;Super&gt;d" type="string" value="rofi -show drun -width 95 -show-icons"/>
+      <property name="&lt;Super&gt;w" type="string" value="rofi -show windowcd -width 95"/>
+      <property name="&lt;Super&gt;r" type="string" value="rofi -show run -width 95"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -176,7 +177,6 @@
       <property name="&lt;Super&gt;KP_7" type="string" value="tile_up_left_key"/>
       <property name="&lt;Super&gt;Left" type="string" value="tile_left_key"/>
       <property name="&lt;Primary&gt;&lt;Shift&gt;&lt;Alt&gt;Right" type="string" value="move_window_right_key"/>
-      <property name="&lt;Super&gt;d" type="string" value="show_desktop_key"/>
       <property name="&lt;Primary&gt;F4" type="string" value="workspace_4_key"/>
       <property name="&lt;Primary&gt;F12" type="string" value="workspace_12_key"/>
       <property name="Up" type="string" value="up_key"/>
