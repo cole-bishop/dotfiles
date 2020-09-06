@@ -7,6 +7,8 @@ which setopt > /dev/null 2>&1 && setopt auto_cd
 # npm no longer needs root to install packages.
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
+# z. If installed from brew
+[ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
 # ssh agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
