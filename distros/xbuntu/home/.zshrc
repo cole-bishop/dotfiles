@@ -46,7 +46,10 @@ do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 # tmuxp (install with "pip install --user tmuxp")
-[ -d ~/.tmuxp ] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
+which tmuxp &> /dev/null
+if [[ $? -eq 0 ]] then
+	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
+fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/cole/.sdkman"
 [[ -s "/home/cole/.sdkman/bin/sdkman-init.sh" ]] && source "/home/cole/.sdkman/bin/sdkman-init.sh"

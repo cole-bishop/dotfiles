@@ -21,5 +21,9 @@ else
   shell_extension=bash
 fi
 [ -f "~/.fzf.$shell_extension" ] && source "~/.fzf.$shell_extension"
+# arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
+[ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
+# xbunutu fzf locations.
+[ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
