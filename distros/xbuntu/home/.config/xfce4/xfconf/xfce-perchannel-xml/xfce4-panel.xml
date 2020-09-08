@@ -3,7 +3,7 @@
 <channel name="xfce4-panel" version="1.0">
   <property name="panels" type="uint" value="1">
     <property name="panel-0" type="empty">
-      <property name="position" type="string" value="p=6;x=0;y=0"/>
+      <property name="position" type="string" value="p=6;x=960;y=13"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
       <property name="plugin-ids" type="array">
@@ -31,6 +31,7 @@
       <property name="autohide-behavior" type="uint" value="0"/>
       <property name="disable-struts" type="bool" value="false"/>
       <property name="icon-size" type="uint" value="0"/>
+      <property name="output-name" type="string" value="Primary"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -75,6 +76,7 @@
       <property name="square-icons" type="bool" value="true"/>
       <property name="symbolic-icons" type="bool" value="true"/>
       <property name="known-items" type="array">
+        <value type="string" value="redshift"/>
         <value type="string" value="Microsoft Teams - Preview1"/>
         <value type="string" value="MEGAsync"/>
         <value type="string" value="pulse-sms1"/>
@@ -87,7 +89,7 @@
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
       <property name="enable-mpris" type="bool" value="true"/>
       <property name="mixer-command" type="string" value="pavucontrol"/>
-      <property name="mpris-players" type="string" value="chrome.instance12102;chrome.instance1747;chrome.instance3019;chromium.instance10482;chromium.instance1540;chromium.instance1586;chromium.instance2400;parole;spotify"/>
+      <property name="mpris-players" type="string" value="chrome.instance12102;chrome.instance1747;chrome.instance3019;chromium.instance10482;chromium.instance1540;chromium.instance1586;chromium.instance1648;chromium.instance1738;chromium.instance2153;chromium.instance2239;chromium.instance2400;chromium.instance29965;parole;spotify"/>
       <property name="show-notifications" type="bool" value="true"/>
     </property>
     <property name="plugin-11" type="string" value="separator">

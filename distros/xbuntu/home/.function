@@ -67,3 +67,7 @@ function listManuallyInstalledPackagesApt() {
 function listManuallyInstalledPackagesBrew() {
   brew list|sed 's/  /\\n/g'
 }
+# Show manually installed snap packages.
+function listManuallyInstalledPackagesSnap() {
+  snap list|grep -oIP '^[\w-]+'|tail -n +2
+}

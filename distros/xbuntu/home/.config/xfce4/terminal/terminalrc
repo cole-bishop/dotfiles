@@ -36,5 +36,10 @@ MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
 TabActivityColor=#0f4999
-
 ColorCursorUseDefault=FALSE
+ShortcutsNoMnemonics=TRUE
+ShortcutsNoHelpkey=TRUE
+ShortcutsNoMenukey=TRUE
+ScrollingBar=TERMINAL_SCROLLBAR_NONE
+FontUseSystem=TRUE
+

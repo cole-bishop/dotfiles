@@ -1,4 +1,5 @@
 apt-transport-https
+arandr
 aspnetcore-runtime-3.1
 brave-browser
 build-essential
@@ -8,12 +9,16 @@ dotnet-sdk-3.1
 fonts-powerline
 fzf
 git
+gnome-disk-utility
 htop
 megasync
+meld
 neofetch
 packages-microsoft-prod
 powerline
 pulse-sms
+redshift
+redshift-gtk
 rofi
 stow
 tmux
