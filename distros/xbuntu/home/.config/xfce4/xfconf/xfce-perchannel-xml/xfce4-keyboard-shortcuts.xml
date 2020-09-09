@@ -79,6 +79,7 @@
       <property name="&lt;Super&gt;d" type="string" value="rofi -show drun -width 95 -show-icons"/>
       <property name="&lt;Super&gt;w" type="string" value="rofi -show windowcd -width 95"/>
       <property name="&lt;Super&gt;r" type="string" value="rofi -show run -width 95"/>
+      <property name="&lt;Super&gt;o" type="string" value="bash -c &quot;. ~/.tools/cli/scripts/move-to-next-monitor&quot;"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

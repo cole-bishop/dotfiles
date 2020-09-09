@@ -28,6 +28,11 @@ if [ -d "$HOME/.tools/cli/executables" ] ; then
     PATH="$HOME/.tools/cli/executables:$PATH"
 fi
 
+# Custom scripts
+if [ -d "$HOME/.tools/cli/scripts" ] ; then
+    PATH="$HOME/.tools/cli/scripts:$PATH"
+fi
+
 # set XDG configuration home.
 if [ -d "$HOME/.config" ] ; then
     export XDG_CONFIG_HOME="$HOME/.config"
