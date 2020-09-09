@@ -16,13 +16,15 @@ fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
 fi
+# tmux plugin manager tpm. Clone if not present.
+[ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 # fzf
 if [ -n "$ZSH_VERSION" ]; then
   shell_extension=zsh
 else
   shell_extension=bash
 fi
-[ -f "~/.fzf.$shell_extension" ] && source "~/.fzf.$shell_extension"
+[ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 # arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
