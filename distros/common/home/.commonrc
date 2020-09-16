@@ -24,6 +24,7 @@ if [ -n "$ZSH_VERSION" ]; then
 else
   shell_extension=bash
 fi
+export FZF_DEFAULT_COMMAND='find .'
 [ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 # arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
@@ -31,3 +32,8 @@ fi
 # xbunutu fzf locations.
 [ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
+# nvm
+unset npm_config_prefix
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
