@@ -16,7 +16,7 @@ MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
 MiscDefaultGeometry=80x24
 MiscInheritGeometry=FALSE
-MiscMenubarDefault=TRUE
+MiscMenubarDefault=FALSE
 MiscMouseAutohide=FALSE
 MiscMouseWheelZoom=TRUE
 MiscToolbarDefault=FALSE
@@ -42,4 +42,6 @@ ShortcutsNoHelpkey=TRUE
 ShortcutsNoMenukey=TRUE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 FontUseSystem=TRUE
+ColorUseTheme=TRUE
+BackgroundDarkness=0.640000
 

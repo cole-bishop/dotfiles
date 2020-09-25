@@ -12,7 +12,6 @@
         <value type="int" value="3"/>
         <value type="int" value="4"/>
         <value type="int" value="5"/>
-        <value type="int" value="6"/>
         <value type="int" value="7"/>
         <value type="int" value="8"/>
         <value type="int" value="10"/>
@@ -52,13 +51,13 @@
       <property name="square-icons" type="bool" value="true"/>
       <property name="size-max" type="uint" value="22"/>
       <property name="names-ordered" type="array">
+        <value type="string" value="system-config-printer"/>
         <value type="string" value="cbatticon"/>
         <value type="string" value="task manager"/>
         <value type="string" value="thunar"/>
         <value type="string" value="xfce4-power-manager"/>
       </property>
     </property>
-    <property name="plugin-6" type="string" value="notification-plugin"/>
     <property name="plugin-7" type="string" value="indicator">
       <property name="blacklist" type="array">
         <value type="string" value="libappmenu.so"/>
@@ -76,6 +75,7 @@
       <property name="square-icons" type="bool" value="true"/>
       <property name="symbolic-icons" type="bool" value="true"/>
       <property name="known-items" type="array">
+        <value type="string" value="remmina-icon"/>
         <value type="string" value="redshift"/>
         <value type="string" value="Microsoft Teams - Preview1"/>
         <value type="string" value="MEGAsync"/>
@@ -89,7 +89,7 @@
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
       <property name="enable-mpris" type="bool" value="true"/>
       <property name="mixer-command" type="string" value="pavucontrol"/>
-      <property name="mpris-players" type="string" value="chrome.instance12102;chrome.instance1747;chrome.instance3019;chromium.instance10482;chromium.instance1530;chromium.instance1531;chromium.instance1534;chromium.instance1537;chromium.instance1540;chromium.instance1543;chromium.instance1547;chromium.instance1555;chromium.instance1586;chromium.instance1648;chromium.instance1724;chromium.instance1738;chromium.instance2153;chromium.instance2239;chromium.instance2362;chromium.instance2400;chromium.instance2516;chromium.instance29965;parole;spotify"/>
+      <property name="mpris-players" type="string" value="chrome.instance12102;chrome.instance1747;chrome.instance3019;chromium.instance10482;chromium.instance1521;chromium.instance1525;chromium.instance1530;chromium.instance1531;chromium.instance1534;chromium.instance1537;chromium.instance1540;chromium.instance1543;chromium.instance1547;chromium.instance1554;chromium.instance1555;chromium.instance1562;chromium.instance1568;chromium.instance1583;chromium.instance1586;chromium.instance1605;chromium.instance1648;chromium.instance1671;chromium.instance1724;chromium.instance1738;chromium.instance1769;chromium.instance1882;chromium.instance1910;chromium.instance1964;chromium.instance2153;chromium.instance2239;chromium.instance2289;chromium.instance2362;chromium.instance2372;chromium.instance2400;chromium.instance2516;chromium.instance29965;chromium.instance3039;parole;spotify"/>
       <property name="show-notifications" type="bool" value="true"/>
     </property>
     <property name="plugin-11" type="string" value="separator">

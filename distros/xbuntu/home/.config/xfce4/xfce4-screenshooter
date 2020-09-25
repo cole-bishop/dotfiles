@@ -2,4 +2,7 @@ app=/usr/bin/brave-browser-stable
 last_user=
 screenshot_dir=file:///home/cole/Pictures
 action=2
+delay=0
+region=3
+show_mouse=1
 

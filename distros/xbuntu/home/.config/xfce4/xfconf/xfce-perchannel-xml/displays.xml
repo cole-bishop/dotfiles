@@ -51,7 +51,72 @@
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Position" type="empty">
+        <property name="X" type="int" value="1920"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2" type="string" value="DP2">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value=""/>
+      <property name="Resolution" type="string" value="1024x768"/>
+      <property name="RefreshRate" type="double" value="60.003840"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="1920"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2-1" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2-2" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="3840"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP1-1" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP1-2" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="3840"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
@@ -105,7 +170,72 @@
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Position" type="empty">
+        <property name="X" type="int" value="1920"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2" type="string" value="DP2">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value=""/>
+      <property name="Resolution" type="string" value="1024x768"/>
+      <property name="RefreshRate" type="double" value="60.003840"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="1920"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2-1" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP2-2" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="3840"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP1-1" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP1-2" type="string" value="GEC 16&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="350808635106fca9d8c84eebbf6e6c095e9e0f08"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.717510"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="3840"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
@@ -140,7 +270,7 @@
   </property>
   <property name="Notify" type="bool" value="true"/>
   <property name="AutoEnableProfiles" type="bool" value="true"/>
-  <property name="IdentityPopups" type="bool" value="false"/>
+  <property name="IdentityPopups" type="bool" value="true"/>
   <property name="2b84fd26d4d2fb637b53fae2a754d04e6256c9b1" type="string" value="xps-3-monitors">
     <property name="eDP-1" type="string" value="Laptop">
       <property name="Active" type="bool" value="true"/>
