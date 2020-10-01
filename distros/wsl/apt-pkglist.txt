@@ -1,0 +1,13 @@
+build-essential
+curl
+fonts-powerline
+fzf
+git
+htop
+neofetch
+powerline
+stow
+tmux
+vim
+xsel
+zsh
