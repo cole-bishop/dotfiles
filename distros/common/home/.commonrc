@@ -10,11 +10,13 @@ export npm_config_prefix=~/.node_modules
 # z. If installed from brew
 [ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
 # ssh agent
-# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-#    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-# fi
+# this line is used if using wsl.
+[[ $XDG_RUNTIME_DIR == "" ]] && export XDG_RUNTIME_DIR="$HOME/.xdg_runtime_dir" && mkdir "$HOME/.xdg_runtime_dir" 2> /dev/null
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+   ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
+   eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
 fi
 # tmux plugin manager tpm. Clone if not present.
 [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
