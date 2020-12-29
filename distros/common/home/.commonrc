@@ -28,11 +28,19 @@ if [ -n "$ZSH_VERSION" ]; then
 else
   shell_extension=bash
 fi
+# If 'ag' or 'fd' are found, utilize them passively for
+# fzf for appropriate commands.
 if which ag &> /dev/null; then
-  export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+  COMMON_DEFAULT_COMMAND='ag --hidden -U -g ""' # utilizes $HOME/.agignore.
+  export FZF_DEFAULT_COMMAND="$COMMON_DEFAULT_COMMAND"
+  export FZF_CTRL_T_COMMAND="$COMMON_DEFAULT_COMMAND"
 else
   export FZF_DEFAULT_COMMAND='find .'
 fi
+if which fd &> /dev/null; then
+  export FZF_ALT_C_COMMAND="fd -t d"
+fi
+  
 # if one has ag
 # which ag &> /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
