@@ -9,7 +9,7 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 # Common shell files.
-for dotfile in .alias .function .export .commonrc
+for dotfile in .alias .function .export .commonrc .secrets
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done

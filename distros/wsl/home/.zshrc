@@ -13,7 +13,7 @@ compinit
 # Path to your oh-my-zsh installation.
 if [[ -d "$HOME/.oh-my-zsh" ]] then
   export ZSH="$HOME/.oh-my-zsh"
-  plugins=()
+  plugins=(history)
   source $ZSH/oh-my-zsh.sh
 fi
 
@@ -36,12 +36,24 @@ if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug load
 fi
 
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_BEEP
+
+setopt interactivecomments
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
-for dotfile in .alias .function .export .profile .commonrc
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+for dotfile in .alias .function .export .profile .commonrc .secrets
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done

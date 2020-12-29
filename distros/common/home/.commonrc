@@ -10,7 +10,7 @@ export npm_config_prefix=~/.node_modules
 # z. If installed from brew
 [ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
 # ssh agent
-# this line is used if using wsl.
+# this line is used if using wsl2.
 [[ $XDG_RUNTIME_DIR == "" ]] && export XDG_RUNTIME_DIR="$HOME/.xdg_runtime_dir" && mkdir "$HOME/.xdg_runtime_dir" 2> /dev/null
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
@@ -28,7 +28,14 @@ if [ -n "$ZSH_VERSION" ]; then
 else
   shell_extension=bash
 fi
-export FZF_DEFAULT_COMMAND='find .'
+if which ag &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+else
+  export FZF_DEFAULT_COMMAND='find .'
+fi
+# if one has ag
+# which ag &> /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+
 [ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 # arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
@@ -37,7 +44,21 @@ export FZF_DEFAULT_COMMAND='find .'
 [ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
 # nvm
+# To prep for nvm (if using on WSL2), delete and uninstall all npm and node related
+# artifacts from windows. Then install nvm with the following:
+# https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2
+# Below is what is appended to .bashrc upon installing nvm with their curl|bash command.
 unset npm_config_prefix
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# The following line should enable one to just open a new
+# shell, and npm will start referencing the correct node location
+# with nvm.
+echo $NVM_BIN|sed 's/\/bin//g'|sed 's/^/prefix=/g' > "$HOME/.npmrc"
+# If installing for the first time on WSL2, you will likely have to run:
+# YOUR_NODE_VERSION=<your-node-version>
+# nvm install $YOUR_NODE_VERSION 
+# npm config delete prefix 
+# npm config set prefix "$NVM_DIR/versions/node/$YOUR_NODE_VERSION"
+# echo "$YOUR_NODE_VERSION" > "$HOME/.nvmrc" # unfortunately, it seems this file is the only way for nvm to select any node version upon a new login shell.

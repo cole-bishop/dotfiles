@@ -1,8 +1,8 @@
 # copy-paste from stdin and stdout
-if test $(which xsel); then
-	alias pbcopy='xsel --clipboard --input'
-	alias pbpaste='xsel --clipboard --output'
-fi
+alias pbcopy='clip.exe'
+alias pbpaste='powershell.exe Get-Clipboard'
+# dotnet
+alias dotnet='dotnet.exe'
 # grep
 alias cgrep='grep -rIPn --color=auto'
 alias grep='grep --color=auto'
@@ -19,6 +19,7 @@ alias lessrn='less -rN'
 # git
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
 alias gdmsa='git --no-pager diff --name-only HEAD|xargs -I % echo "`git rev-parse --show-toplevel`/%"' # list of modified and staged files with full directory paths.
+alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr - %as) %C(bold blue)<%an>%Creset' --all"
 alias glolsa='glols --all' # for use with oh-my-zsh git alias.
 # override https://github.com/jhillyerd/plugin-git aliases 
 # with those from https://github.com/wfxr/forgit.
