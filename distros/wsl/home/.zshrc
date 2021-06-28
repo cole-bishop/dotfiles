@@ -13,22 +13,21 @@ compinit
 # Path to your oh-my-zsh installation.
 if [[ -d "$HOME/.oh-my-zsh" ]] then
   export ZSH="$HOME/.oh-my-zsh"
-  plugins=(history)
+  plugins=()
   source $ZSH/oh-my-zsh.sh
 fi
 
 # Get zplug as universal zsh plugin manager. Don't uncomment - run as regular command.
 # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-
 if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh" ) ]] then
     source "$HOME/.zplug/init.zsh" > /dev/null 2>&1 || source "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
     # For spaceship configuration
     source "$HOME/.spaceship-prompt/settings.zsh"
+    zplug "plugins/docker", from:oh-my-zsh
     zplug "plugins/git", from:oh-my-zsh
     zplug "plugins/battery", from:oh-my-zsh
     zplug "plugins/tmux", from:oh-my-zsh
-    zplug "plugins/docker", from:oh-my-zsh
     zplug "plugins/docker-compose", from:oh-my-zsh
     zplug 'wfxr/forgit'
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -62,3 +61,7 @@ which tmuxp &> /dev/null
 if [[ $? -eq 0 ]] then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

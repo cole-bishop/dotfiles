@@ -4,3 +4,12 @@ node_modules/**
 .vscode/**
 .idea/**
 packages/**
+.npm/**
+go/**
+.cache/**
+.java/**
+.docker/**
+.gnupg/**
+.zplug/**
+.SpaceVim/**
+.dotnet/**

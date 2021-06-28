@@ -11,11 +11,18 @@ HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups
 
 export WSL_HOME="/mnt/c/Users/cole.bishop"
+export APPDATA="$WSL_HOME/AppData/Roaming/"
+export LOCALAPPDATA="$WSL_HOME/AppData/Local/"
 export DISPLAY="localhost:0.0"
 
 # multiple monitor layouts generated from arandr
 if [ -d "$HOME/.screenlayout" ] ; then
     PATH="$HOME/.screenlayout:$PATH"
+fi
+
+# Golang
+if [ -d "$(go env GOPATH)/bin" ] ; then
+    PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
 # karaf custom env variables

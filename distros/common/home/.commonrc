@@ -21,7 +21,7 @@ fi
 # tmux plugin manager tpm. Clone if not present.
 [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 # X settings
-which xset > /dev/null 2>&1 && xset -dpms
+# which xset > /dev/null 2>&1 && xset -dpms
 # fzf
 if [ -n "$ZSH_VERSION" ]; then
   shell_extension=zsh
@@ -35,10 +35,14 @@ if which ag &> /dev/null; then
   export FZF_DEFAULT_COMMAND="$COMMON_DEFAULT_COMMAND"
   export FZF_CTRL_T_COMMAND="$COMMON_DEFAULT_COMMAND"
 else
-  export FZF_DEFAULT_COMMAND='find .'
+  export FZF_DEFAULT_COMMAND="find ."
+  export FZF_CTRL_T_COMMAND="find ."
 fi
+# fzf for fd passive opt it
 if which fd &> /dev/null; then
   export FZF_ALT_C_COMMAND="fd -t d"
+else
+  export FZF_ALT_C_COMMAND="find . -type -d|tail -n +2"
 fi
   
 # if one has ag

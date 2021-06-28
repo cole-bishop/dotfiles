@@ -22,6 +22,13 @@ function o() {
 		open "$@";
 	fi;
 }
+# fix history file corruption
+function fixHistfileCorruption() {
+  mv "$HOME/.histfile" "$HOME/.histfile_bad"
+  strings -eS "$HOME/.histfile_bad" > "$HOME/.histfile"
+  fc -R "$HOME/.histfile"
+  rm "$HOME/.histfile_bad"
+}
 # Puts a random UUID on the clipboard.
 function gimmeUuid() {
   uuidgen|tr -d '\n'|xsel --clipboard --input
