@@ -31,7 +31,7 @@ if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh"
     zplug "plugins/docker-compose", from:oh-my-zsh
     zplug 'wfxr/forgit'
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
-    zplug "mafredri/zsh-async", from:github
+    # zplug "mafredri/zsh-async", from:github
     zplug load
 fi
 
@@ -52,7 +52,7 @@ setopt interactivecomments
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
-for dotfile in .alias .function .export .profile .commonrc .secrets
+for dotfile in .secrets .alias .function .export .profile .commonrc 
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
@@ -61,6 +61,12 @@ which tmuxp &> /dev/null
 if [[ $? -eq 0 ]] then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
+# autocomplete for terraform
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
+# Figure out why this is necessary later...
+cd $HOME
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

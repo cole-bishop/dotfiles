@@ -67,7 +67,8 @@ export NVM_DIR="$HOME/.config/nvm"
 # The following line should enable one to just open a new
 # shell, and npm will start referencing the correct node location
 # with nvm.
-echo $NVM_BIN|sed 's/\/bin//g'|sed 's/^/prefix=/g' > "$HOME/.npmrc"
+# echo $NVM_BIN|sed 's/\/bin//g'|sed 's/^/prefix=/g' > "$HOME/.npmrc"
+
 # If installing for the first time on WSL2, you will likely have to run:
 # YOUR_NODE_VERSION=<your-node-version>
 # nvm install $YOUR_NODE_VERSION 

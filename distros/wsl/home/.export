@@ -7,8 +7,8 @@ else
 fi
 
 # Avoid duplicates
-HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace:ignoredups
+export HISTFILESIZE="$HISTSIZE"
+export HISTCONTROL=ignorespace:ignoredups
 
 export WSL_HOME="/mnt/c/Users/cole.bishop"
 export APPDATA="$WSL_HOME/AppData/Roaming/"
@@ -59,6 +59,17 @@ fi
 # add brew, if installed.
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
+# add directory for custom dotnet installation
+if [ -f "$HOME/.tools/cli/dotnet/6.0.0/dotnet" ] ; then
+    export DOTNET_ROOT="$HOME/.tools/cli/dotnet/6.0.0"
+    PATH="$HOME/.tools/cli/dotnet/6.0.0:$PATH"
+fi
+
+# dotnet cli tools
+if [ -d "$HOME/.dotnet/tools" ] ; then
+    PATH="$HOME/.dotnet/tools:$PATH"
 fi
 
 # Spaceship prompt customization
