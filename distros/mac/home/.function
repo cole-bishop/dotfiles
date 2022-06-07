@@ -1,0 +1,80 @@
+# git function for pulling all known remote branches and updating them all.
+# Found at https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches#10312587
+guab ()
+{
+  git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+  git fetch --all
+  git pull --all
+}
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+# `o` with no arguments opens the current directory, otherwise opens the given
+# location
+function o() {
+	if [ $# -eq 0 ]; then
+		open .;
+	else
+		open "$@";
+	fi;
+}
+# fix history file corruption
+function fixHistfileCorruption() {
+  mv "$HOME/.histfile" "$HOME/.histfile_bad"
+  strings -eS "$HOME/.histfile_bad" > "$HOME/.histfile"
+  fc -R "$HOME/.histfile"
+  rm "$HOME/.histfile_bad"
+}
+# Puts a random UUID on the clipboard.
+function gimmeUuid() {
+  uuidgen|tr -d '\n'|xsel --clipboard --input
+}
+# Run `dig` and display the most useful info.
+# Or use `drill` instead.
+function digga() {
+	dig +nocmd "$1" any +multiline +noall +answer;
+}
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+# Create a new directory and enter it
+function mkd() {
+	mkdir -p "$@" && cd "$_";
+}
+
+# To use java jar as cli tool.
+# Place executable jars into $HOME/.tools/cli/java/jars,
+# like bnd, and use like 'jjar bnd version'.
+function jjar() {
+  java -jar "$HOME/.tools/cli/java/jars/$1" "${@:2}"  
+}
+# Show wifi password for given SSID name.
+function passwordForSsid() {
+  nmcli --show-secrets connection show "$1"|grep wireless-security.psk:
+}
+# Show manually installed packages for xbuntu/debian.
+function listManuallyInstalledPackagesApt() {
+  comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
+}
+# Show manually installed packages for brew.
+function listManuallyInstalledPackagesBrew() {
+  brew list|sed 's/  /\\n/g'
+}
+# Show manually installed snap packages.
+function listManuallyInstalledPackagesSnap() {
+  snap list|grep -oIP '^[\w-]+'|tail -n +2
+}

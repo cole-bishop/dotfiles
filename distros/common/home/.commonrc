@@ -40,9 +40,9 @@ else
 fi
 # fzf for fd passive opt it
 if which fd &> /dev/null; then
-  export FZF_ALT_C_COMMAND="fd -t d"
+  export FZF_ALT_C_COMMAND="fd -t d -c never"
 else
-  export FZF_ALT_C_COMMAND="find . -type -d|tail -n +2"
+  export FZF_ALT_C_COMMAND="find . -type d|tail -n +2"
 fi
   
 # if one has ag
@@ -55,6 +55,10 @@ fi
 # xbunutu fzf locations.
 [ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
+# mac fzf locations.
+[ -f "/opt/local/share/fzf/shell/key-bindings.$shell_extension" ] && . "/opt/local/share/fzf/shell/key-bindings.$shell_extension"
+[ -f "/opt/local/share/fzf/shell/completion.$shell_extension" ] && . "/opt/local/share/fzf/shell/completion.$shell_extension"
+
 # nvm
 # To prep for nvm (if using on WSL2), delete and uninstall all npm and node related
 # artifacts from windows. Then install nvm with the following:
