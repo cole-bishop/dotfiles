@@ -51,7 +51,7 @@ setopt interactivecomments
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
-for dotfile in .alias .function .export .profile .commonrc .secrets
+for dotfile in .alias .secrets .export .function .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
