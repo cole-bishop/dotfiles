@@ -56,6 +56,27 @@ if [ -d "$HOME/.config" ] ; then
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
 
+# NVM installed from brew.
+if [[ -d "/opt/homebrew/opt/nvm" ]] && [[ -d "/opt/homebrew/opt/nvm" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+    export NVM_STARTUP_SHELL_FILE="/opt/homebrew/opt/nvm/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+# NVM installed on WSL
+if [ -d "$HOME/.config/nvm" ] ; then
+    export NVM_DIR="$HOME/.config/.nvm"
+    export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+fi
+
+# Manual installation
+if [ -d "$HOME/.nvm" ] ; then
+    export NVM_DIR="$HOME/.nvm"
+    export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+fi
+
 # add brew, if installed.
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"

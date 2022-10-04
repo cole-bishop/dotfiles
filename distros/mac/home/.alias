@@ -2,6 +2,7 @@
 # alias dotnet='dotnet.exe'
 # grep
 alias cgrep='grep -rIn --color=auto'
+alias ggrep='git --no-pager grep -nP'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -30,3 +31,4 @@ alias "gclean"='forgit::clean'
 alias "gss"='forgit::stash::show'
 # tar aliases
 alias "tar.bz2.unzip"="tar -xvjf"
+alias "removeWhitespaceWithSed"="sed 's/^[ \t]*//;s/[ \t]*$//'"

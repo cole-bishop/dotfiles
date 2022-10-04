@@ -8,53 +8,47 @@ zstyle :compinstall filename '/home/cole/.zshrc'
 
 autoload -Uz compinit
 compinit
+
 # End of lines added by compinstall
+if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+  # Path to your oh-my-zsh installation.
+  if [[ -d "$HOME/.oh-my-zsh" ]] then
+    export ZSH="$HOME/.oh-my-zsh"
+    # To active syntax highlighting, run  
+    # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    #
+    # To make sure spaceship runs, run
+    # git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+    # And create the symlink
+    # ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+    plugins=(git kubectl tmux zsh-syntax-highlighting)
+    source $ZSH/oh-my-zsh.sh
+  fi
+  # presume spaceship theme installed manually with
+  # mkdir -p "$HOME/.zsh" && git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
+  [[ -d "$HOME/.zsh/spaceship" ]] && export SPACESHIP_ROOT="$HOME/.zsh/spaceship"
+  [[ -f "$HOME/.zsh/spaceship/spaceship.zsh" ]] && source "$HOME/.zsh/spaceship/spaceship.zsh"
 
-# Path to your oh-my-zsh installation.
-if [[ -d "$HOME/.oh-my-zsh" ]] then
-  export ZSH="$HOME/.oh-my-zsh"
-  plugins=()
-  source $ZSH/oh-my-zsh.sh
+  setopt EXTENDED_HISTORY
+  setopt HIST_EXPIRE_DUPS_FIRST
+  setopt HIST_IGNORE_DUPS
+  setopt HIST_IGNORE_ALL_DUPS
+  setopt HIST_IGNORE_SPACE
+  setopt HIST_FIND_NO_DUPS
+  setopt HIST_SAVE_NO_DUPS
+  setopt HIST_BEEP
+
+  setopt interactivecomments
+
 fi
 
-# Get zplug as universal zsh plugin manager. Don't uncomment - run as regular command.
-# curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-if [[ ( -f "$HOME/.zplug/init.zsh" || -f "/usr/share/zsh/scripts/zplug/init.zsh" ) ]] then
-    source "$HOME/.zplug/init.zsh" > /dev/null 2>&1 || source "/usr/share/zsh/scripts/zplug/init.zsh"
-    zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-    # For spaceship configuration
-    source "$HOME/.spaceship-prompt/settings.zsh"
-    zplug "plugins/docker", from:oh-my-zsh
-    zplug "plugins/git", from:oh-my-zsh
-    zplug "plugins/battery", from:oh-my-zsh
-    zplug "plugins/tmux", from:oh-my-zsh
-    zplug 'wfxr/forgit'
-    zplug "zsh-users/zsh-syntax-highlighting", defer:2
-    zplug "mafredri/zsh-async", from:github
-    zplug load
-fi
-
-setopt EXTENDED_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_BEEP
-
-setopt interactivecomments
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
-for dotfile in .alias .secrets .export .function .commonrc
+
+for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work 
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
+
 # tmuxp (install with "pip install --user tmuxp")
 which tmuxp &> /dev/null
 if [[ $? -eq 0 ]] then

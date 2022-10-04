@@ -65,13 +65,13 @@ fi
 # https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2
 # Below is what is appended to .bashrc upon installing nvm with their curl|bash command.
 unset npm_config_prefix
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_STARTUP_SHELL_FILE" ] && \. "$NVM_STARTUP_SHELL_FILE"  # This loads nvm
+[ -s "$NVM_BASH_COMPELTION_FILE" ] && \. "$NVM_BASH_COMPELTION_FILE"  # This loads nvm bash_completion
+
 # The following line should enable one to just open a new
 # shell, and npm will start referencing the correct node location
-# with nvm.
-echo $NVM_BIN|sed 's/\/bin//g'|sed 's/^/prefix=/g' > "$HOME/.npmrc"
+# with nvm. For WSL
+# echo $NVM_BIN|sed 's/\/bin//g'|sed 's/^/prefix=/g' > "$HOME/.npmrc"
 # If installing for the first time on WSL2, you will likely have to run:
 # YOUR_NODE_VERSION=<your-node-version>
 # nvm install $YOUR_NODE_VERSION 
