@@ -1,0 +1,147 @@
+# settings desired to be the same for bash, zsh, etc, for all types of shell invocations
+# use nvim as editor if possible
+if [ -f /usr/bin/nvim ]; then
+    EDITOR="nvim"
+else
+    EDITOR="vim"
+fi
+
+# Avoid duplicates
+HISTFILESIZE=$HISTSIZE
+HISTCONTROL=ignorespace:ignoredups
+
+export WSL_HOME="/mnt/c/Users/cole.bishop"
+export APPDATA="$WSL_HOME/AppData/Roaming/"
+export LOCALAPPDATA="$WSL_HOME/AppData/Local/"
+export DISPLAY="localhost:0.0"
+
+# multiple monitor layouts generated from arandr
+if [ -d "$HOME/.screenlayout" ] ; then
+    PATH="$HOME/.screenlayout:$PATH"
+fi
+
+# Golang
+if [ -x "$(which go)" ] && [ -d "$(go env GOPATH)/bin" ] ; then
+    PATH="$(go env GOPATH)/bin:$PATH"
+fi
+
+# karaf custom env variables
+export KARAF_VERSION="4.2.6"
+if [ -d "$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION" ] ; then
+     export KARAF_HOME_LOCAL="$HOME/.local/lib/karaf/apache-karaf-$KARAF_VERSION"
+fi
+
+# set PATH so it includes user's private bin if it exists.
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# set PATH to include composer packages.
+if [ -d "$HOME/.composer/vendor/bin" ] ; then
+    PATH="$HOME/.composer/vendor/bin:$PATH"
+fi
+
+# Custom executables
+if [ -d "$HOME/.tools/cli/executables" ] ; then
+    PATH="$HOME/.tools/cli/executables:$PATH"
+fi
+
+# Custom scripts
+if [ -d "$HOME/.tools/cli/scripts" ] ; then
+    PATH="$HOME/.tools/cli/scripts:$PATH"
+fi
+
+# set XDG configuration home.
+if [ -d "$HOME/.config" ] ; then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+# NVM installed from brew.
+if [[ -d "/opt/homebrew/opt/nvm" ]] && [[ -d "/opt/homebrew/opt/nvm" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+    export NVM_STARTUP_SHELL_FILE="/opt/homebrew/opt/nvm/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+# NVM installed on WSL
+if [ -d "$HOME/.config/nvm" ] ; then
+    export NVM_DIR="$HOME/.config/.nvm"
+    export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+fi
+
+# Manual installation
+if [ -d "$HOME/.nvm" ] ; then
+    export NVM_DIR="$HOME/.nvm"
+    export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
+    export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+fi
+
+# add brew, if installed.
+if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
+    PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
+# Spaceship prompt customization
+export SPACESHIP_GIT_SYMBOL=''
+# Just comment a section if you want to disable it
+SPACESHIP_PROMPT_ORDER=(
+  # time        # Time stamps section (Disabled)
+  # user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  # hg            # Mercurial section (hg_branch  + hg_status)
+  # package     # Package version (Disabled)
+  # node          # Node.js section
+  # ruby          # Ruby section
+  # elixir        # Elixir section
+  # xcode       # Xcode section (Disabled)
+  # swift         # Swift section
+  # golang        # Go section
+  # php           # PHP section
+  # rust          # Rust section
+  # haskell       # Haskell Stack section
+  # julia       # Julia section (Disabled)
+  # docker      # Docker section (Disabled)
+  # aws           # Amazon Web Services section
+  # gcloud        # Google Cloud Platform section
+  # venv          # virtualenv section
+  # conda         # conda virtualenv section
+  # pyenv         # Pyenv section
+  # dotnet        # .NET section
+  # ember       # Ember.js section (Disabled)
+  # kubecontext   # Kubectl context section
+  # terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  # vi_mode     # Vi-mode indicator (Disabled)
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+# Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY=~/.node_history;
+# Allow 32³ entries; the default is 1000.
+export NODE_REPL_HISTORY_SIZE='32768';
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy';
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+# Increase Bash history size. Allow 32³ entries; the default is 500.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+# Avoid issues with `gpg` as installed via Homebrew.
+# https://stackoverflow.com/a/42265848/96656
+export GPG_TTY=$(tty);
+
