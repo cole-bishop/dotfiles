@@ -97,6 +97,8 @@ do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 
+# todo move this in another rc file before commonrc in order of eval
+eval "$(starship init bash)"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
