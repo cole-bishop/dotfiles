@@ -1,8 +1,8 @@
 # dotnet
 # alias dotnet='dotnet.exe'
 # grep
-alias cgrep='grep -rIn --color=auto'
-alias ggrep='git --no-pager grep -nP'
+alias cgrep='grep -rEIn --color=auto'
+alias ggrep='git --no-pager grep -nEP'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -15,9 +15,21 @@ alias l='ls -CF'
 alias lessr='less -r'
 alias lessrn='less -rN'
 # git
+# show origin branches without the 'remotes/origin' prefix
+alias gbaa='git --no-pager branch -a|sed "s#^[[:space:]]*remotes/origin/##g"'
+# gba requires fzf
+alias gs='echo "Branch: $(git rev-parse --abbrev-ref HEAD)" && echo "Commit: $(git rev-parse HEAD)" && echo "Tags: $(git tag --points-at HEAD)"'
+alias gla='git branch -a --sort=-committerdate'
+# Selects a branch to checkout ordered by most recently committed to.
+# Lets you checkout any remote or currently local branch from fzf.
+alias gba='git checkout $(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)"|fzf)' 
+# Does the same as alias 'gba', but if it starts with 'origin/', it removes that so you checkout a local version of that branch.
+alias gbal='git checkout $(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)"|fzf|sed "s#^[[:space:]]*origin/##g")' # selects a branch to checkout ordered by most recently committed to
 alias gdms='git --no-pager diff --name-only HEAD' # list of modified and staged files.
 alias gdmsa='git --no-pager diff --name-only HEAD|xargs -I % echo "`git rev-parse --show-toplevel`/%"' # list of modified and staged files with full directory paths.
-alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr - %as) %C(bold blue)<%an>%Creset' --all"
+alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar, %cs) %C(bold blue)<%an>%Creset"'
+alias glols='glol --stat'
+alias glola='glol --all'
 alias glolsa='glols --all' # for use with oh-my-zsh git alias.
 # override https://github.com/jhillyerd/plugin-git aliases 
 # with those from https://github.com/wfxr/forgit.
@@ -29,6 +41,24 @@ alias "gi"='forgit::ignore'
 alias "gcf"='forgit::restore'
 alias "gclean"='forgit::clean'
 alias "gss"='forgit::stash::show'
+alias "commit-message-of-remote-branch"='git log origin/$(git rev-parse --abbrev-ref HEAD) -1 --pretty=%B'
+alias "commit-message-ahead-of-me"='git log HEAD@{1} --pretty=format:%B -n 1'
+alias "add-amend-and-push"='git add "*" && git commit --amend --no-edit --date "$(date)" &&  git push --force-with-lease'
+alias "push-branch-first-time"='git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)'
 # tar aliases
-alias "tar.bz2.unzip"="tar -xvjf"
+alias "untargz"="tar -xvzf"
+alias "untarbz2"="tar -xvjf"
 alias "removeWhitespaceWithSed"="sed 's/^[ \t]*//;s/[ \t]*$//'"
+alias "git-status-name-only"="git status --porcelain | sed s/^...//"
+alias "watchGitStatus"="watch --color -p -n 1 --exec zsh -c \"git -c color.status=always --no-optional-locks status\""
+alias "tolower"="tr '[:upper:]' '[:lower:]'"
+alias "toupper"="tr '[:lower:]' '[:upper:]'"
+# file pretty print
+alias "pxml"='xmllint --format "$1" > "$1.tmp" && mv "$1.tmp" "$1"'
+
+# POSIX if command doesn't exist and file does exist
+if ! command -v dbeaver &> /dev/null && [[ -e /Applications/DBeaver.app/Contents/MacOS/dbeaver ]];
+then
+    alias "dbeaver"="/Applications/DBeaver.app/Contents/MacOS/dbeaver"
+fi
+

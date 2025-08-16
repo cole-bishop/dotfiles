@@ -3,4 +3,3 @@ distros/common/home/.tmux/resurrect/*
 distros/common/home/.config/nvm
 distros/common/home/.config/configstore/update-notifier-npm.json
 distros/common/home/.config/wslu
-distros/common/home/.icons/*

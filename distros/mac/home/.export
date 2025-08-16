@@ -68,6 +68,7 @@ if [ -d "$HOME/.config/nvm" ] ; then
     export NVM_DIR="$HOME/.config/.nvm"
     export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+    export NVM_LTS="20.11.1"
 fi
 
 # Manual installation
@@ -136,12 +137,20 @@ export NODE_REPL_HISTORY_SIZE='32768';
 export NODE_REPL_MODE='sloppy';
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
-# Increase Bash history size. Allow 32³ entries; the default is 500.
+
+### History configuration ###
+export HISTFILE="$HOME/.histfile"
+# Number of commands stored in RAM
 export HISTSIZE='32768';
+# Increase history file size. Allow 32³ entries; the default is 500.
 export HISTFILESIZE="${HISTSIZE}";
+# zsh var that performs the same as HISTFILESIZE.
+export SAVEHIST="${HISTSIZE}"
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';
+
 # Avoid issues with `gpg` as installed via Homebrew.
 # https://stackoverflow.com/a/42265848/96656
 export GPG_TTY=$(tty);
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 
