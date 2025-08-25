@@ -6,6 +6,18 @@ guab ()
   git fetch --all
   git pull --all
 }
+# stage-commit-version-files
+function scvf() {
+	git diff --name-only "$1~1" "$1"|xargs git checkout "$1"
+}
+# working-directory-commit-version-files
+function wdcvf() {
+	git diff --name-only "$1~1" "$1"|xargs git checkout "$1"
+	git diff --name-only "$1~1" "$1"|xargs git reset
+}
+function apply-commit-version-diff() {
+	git apply <(git diff "$1~1" "$1")
+}
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
@@ -30,9 +42,12 @@ function fixHistfileCorruption() {
   rm "$HOME/.histfile_bad"
 }
 # Puts a random UUID on the clipboard.
-function gimmeUuid() {
-  uuidgen|tr -d '\n'|xsel --clipboard --input
+uuid() {
+  UUID=$(uuidgen | tr -d '\n'|tr '[:upper:]' '[:lower:]')
+  echo "$UUID" | tr -d '\n'|pbcopy
+  echo "$UUID"
 }
+
 # Run `dig` and display the most useful info.
 # Or use `drill` instead.
 function digga() {
@@ -78,3 +93,73 @@ function listManuallyInstalledPackagesBrew() {
 function listManuallyInstalledPackagesSnap() {
   snap list|grep -oIP '^[\w-]+'|tail -n +2
 }
+
+function ppgrep() { pgrep "$@" | xargs --no-run-if-empty ps fp; }
+
+# k8s - allows you to tail logs of services even between restarts
+klogs() {
+  local service=$1
+  kubectl logs services/$service -f ; echo "Disconected, awaiting service to come back online" && sleep 1 && log $service
+}
+
+# Copies the commit message of the commit of the 1st (or xth) commit ahead of HEAD to the clipboard.
+copyCommitAheadMessage() {
+  num_commits_ahead=${1:-1}
+  eval "git rev-list --format=%B --max-count=1 HEAD@{$num_commits_ahead}|tail -n +2|pbcopy"
+  echo "copied commit message to clipboard:\n$(pbpaste)"
+}
+
+function whoseUsingPort() {
+  lsof -i -P | grep LISTEN | grep :$1 
+}
+
+function kshark() {
+  kubectl exec $1 -- yum install -y tcpdump && kubectl exec $1 -- tcpdump -i eth0 -w - | wireshark -k -i - 
+}
+
+function grep-get-pod-name() {
+  kubectl get pods --no-headers -o custom-columns=":metadata.name"|grep $1|head -n 1
+}
+
+function wait-until-pod-name-up() {
+	echo "Waiting until pod $1 is up..."
+	until [[ $(kubectl get pod $(grep-get-pod-name $1) -n default -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
+		sleep 1
+	done
+	echo "Pod $1 is up!"
+}
+
+function fzf-get-pod-name() {
+  kubectl get pods --no-headers -o custom-columns=":metadata.name"|fzf
+}
+
+function clean-k-logs() {
+  sed -e 's#\\n#\n#g' -e 's#\\t#\t#g'
+}
+
+function k-nuke-all() {
+	kubectl delete deployments --all && kubectl delete services --all && kubectl delete configmap --all && kubectl delete jobs.batch --all;
+}
+
+function k-logs-by-name() {
+  kubectl logs $(grep-get-pod-name $1)|clean-k-logs
+}
+
+function watch-k-logs-by-name() {
+  watch --color -p -n 1 --exec zsh -c "source ~/.function && k-logs-by-name $1"
+}
+
+# Pretty printing
+# $1 file to operate on
+# $2 file to save as
+function pretty-xml-inplace() {
+	xmllint --format --output "$2" "$1"
+}
+
+function pretty-all-xml-inplace() {
+	find . -type f -name "*.xml" -print0 | xargs -0 -I{} sh -c 'xmllint --format "{}" > "{}.tmp" && mv "{}.tmp" "{}"'
+}
+
+
+
+

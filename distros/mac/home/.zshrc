@@ -1,7 +1,3 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/cole/.zshrc'
@@ -10,6 +6,11 @@ autoload -Uz compinit
 compinit
 
 # End of lines added by compinstall
+
+# Added as per:
+# https://intellij-support.jetbrains.com/hc/en-us/articles/15268184143890-Shell-Environment-Loading
+# so they are removed when intellij uses a shell.
+# Treat as though the if brance wasn't here for regular configuration.
 if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
   # Path to your oh-my-zsh installation.
   if [[ -d "$HOME/.oh-my-zsh" ]] then
@@ -17,36 +18,59 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
     # To active syntax highlighting, run  
     # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     #
-    # To make sure spaceship runs, run
-    # git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-    # And create the symlink
-    # ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-    plugins=(git kubectl tmux zsh-syntax-highlighting)
-    source $ZSH/oh-my-zsh.sh
+    # For manuall installation of zsh-autosuggestions, run
+    # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    plugins=(
+	# You may need to install first with:
+	# curl -sS https://starship.rs/install.sh | sh
+	starship
+	# See all git aliases: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#aliases
+	git
+	kubectl
+	tmux
+	zsh-syntax-highlighting
+	zsh-autosuggestions
+	zsh-256color
+	z
+	deno
+	nvm
+	# sdkman auto complete
+	sdk
+	fzf
+    )
+
+	# Tragically, this must go here instead of near the 
+	# history config in .export as bash doesn't recognize it.
+	setopt EXTENDED_HISTORY
+	setopt HIST_EXPIRE_DUPS_FIRST
+	setopt HIST_IGNORE_DUPS
+	setopt HIST_IGNORE_ALL_DUPS
+	setopt HIST_IGNORE_SPACE
+	setopt HIST_FIND_NO_DUPS
+	setopt HIST_SAVE_NO_DUPS
+	setopt HIST_BEEP
+
+	# echo "oh-my-zsh starting..."
+        source $ZSH/oh-my-zsh.sh
   fi
+
+	# echo "sdkman starting..."
   # presume spaceship theme installed manually with
   # mkdir -p "$HOME/.zsh" && git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
   [[ -d "$HOME/.zsh/spaceship" ]] && export SPACESHIP_ROOT="$HOME/.zsh/spaceship"
   [[ -f "$HOME/.zsh/spaceship/spaceship.zsh" ]] && source "$HOME/.zsh/spaceship/spaceship.zsh"
 
-  setopt EXTENDED_HISTORY
-  setopt HIST_EXPIRE_DUPS_FIRST
-  setopt HIST_IGNORE_DUPS
-  setopt HIST_IGNORE_ALL_DUPS
-  setopt HIST_IGNORE_SPACE
-  setopt HIST_FIND_NO_DUPS
-  setopt HIST_SAVE_NO_DUPS
-  setopt HIST_BEEP
-
   setopt interactivecomments
 
 fi
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 
 for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work 
 do
-    [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
+	 # echo "dotfile $dotfile starting..."
+   [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 
 # tmuxp (install with "pip install --user tmuxp")
@@ -55,10 +79,17 @@ if [[ $? -eq 0 ]] then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
 
-# Install starship manually with 
-# curl -sS https://starship.rs/install.sh | sh
-eval "$(starship init zsh)"
-
+# echo "starting more sdkman..."
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# might not need this from the sdk oh my zsh plugin above
+# echo "starting nvm..."
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/CBishop/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

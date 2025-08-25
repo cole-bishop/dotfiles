@@ -1,6 +1,7 @@
 # ensure usability of delete key in shell.
 which bindkey > /dev/null 2>&1 && bindkey "^[[3~" delete-char
 which setopt > /dev/null 2>&1 && setopt auto_cd
+
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 # nvm
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh

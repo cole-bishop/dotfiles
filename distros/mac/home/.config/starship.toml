@@ -1,4 +1,16 @@
 [java]
 disabled = true
 
-command_timeout = 10000000
+[kotlin]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[gcloud]
+disabled = true
+
+command_timeout = 20000000
