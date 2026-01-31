@@ -14,6 +14,7 @@ alias l='ls -CF'
 # less
 alias lessr='less -r'
 alias lessrn='less -rN'
+alias nolines='tr -d "\n"'
 # git
 # show origin branches without the 'remotes/origin' prefix
 alias gbaa='git --no-pager branch -a|sed "s#^[[:space:]]*remotes/origin/##g"'
@@ -55,6 +56,18 @@ alias "tolower"="tr '[:upper:]' '[:lower:]'"
 alias "toupper"="tr '[:lower:]' '[:upper:]'"
 # file pretty print
 alias "pxml"='xmllint --format "$1" > "$1.tmp" && mv "$1.tmp" "$1"'
+
+if ! command -v firefox &> /dev/null && [[ -e /Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox ]];
+then
+    alias "firefox"="/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox"
+fi
+
+if ! command -v wireshark &> /dev/null && [[ -e /Applications/Wireshark.app/Contents/MacOS/Wireshark ]];
+then
+    alias "wireshark"="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
+fi
+
+
 
 # POSIX if command doesn't exist and file does exist
 if ! command -v dbeaver &> /dev/null && [[ -e /Applications/DBeaver.app/Contents/MacOS/dbeaver ]];

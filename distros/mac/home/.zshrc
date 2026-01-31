@@ -1,9 +1,29 @@
+# Add this to the TOP of your .zshrc
+# to profile what's taking up time as
+# per https://scottspence.com/posts/speeding-up-my-zsh-shell
+# Shell improvements - disable auto updates for oh-my-zsh.
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+# Uncomment to see what might be making
+# zsh slower:
+# zmodload zsh/zprof
+
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/cole/.zshrc'
-
+# zstyle :compinstall filename '/home/cole/.zshrc'
+# autoload -Uz compinit
+# compinit
+#
+# 
+# Smarter completion initialization - rebuild cache once a day.
 autoload -Uz compinit
-compinit
+if [[ -n $(find ~/.zcompdump -mtime +1 2>/dev/null) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # End of lines added by compinstall
 
@@ -18,25 +38,32 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
     # To active syntax highlighting, run  
     # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     #
-    # For manuall installation of zsh-autosuggestions, run
+    # For manual installation of zsh-autosuggestions, run
     # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    #
+    # Load nvm completion lazily to speed up shell loading.
+    # https://dev.to/thraizz/fix-slow-zsh-startup-due-to-nvm-408k
+    zstyle ':omz:plugins:nvm' lazy yes
+
+    # echo "Sourcing oh-my-zsh plugins..."
     plugins=(
-	# You may need to install first with:
-	# curl -sS https://starship.rs/install.sh | sh
-	starship
-	# See all git aliases: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#aliases
-	git
-	kubectl
-	tmux
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	zsh-256color
-	z
-	deno
-	nvm
-	# sdkman auto complete
-	sdk
-	fzf
+		git
+		# You may need to install first with:
+		# curl -sS https://starship.rs/install.sh | sh
+		starship
+		# See all git aliases: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#aliases
+		kubectl
+		tmux
+		zsh-256color
+		deno
+		nvm
+		# sdkman auto complete
+		sdk
+		fzf
+		zsh-autosuggestions
+		# Needs to be last!
+		# https://scottspence.com/posts/speeding-up-my-zsh-shell
+		zsh-syntax-highlighting
     )
 
 	# Tragically, this must go here instead of near the 
@@ -51,25 +78,32 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 	setopt HIST_BEEP
 
 	# echo "oh-my-zsh starting..."
-        source $ZSH/oh-my-zsh.sh
+	source $ZSH/oh-my-zsh.sh
   fi
 
-	# echo "sdkman starting..."
+  # echo "spaceship starting..."
   # presume spaceship theme installed manually with
   # mkdir -p "$HOME/.zsh" && git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
-  [[ -d "$HOME/.zsh/spaceship" ]] && export SPACESHIP_ROOT="$HOME/.zsh/spaceship"
-  [[ -f "$HOME/.zsh/spaceship/spaceship.zsh" ]] && source "$HOME/.zsh/spaceship/spaceship.zsh"
+  #[[ -d "$HOME/.zsh/spaceship" ]] && export SPACESHIP_ROOT="$HOME/.zsh/spaceship"
+  #[[ -f "$HOME/.zsh/spaceship/spaceship.zsh" ]] && source "$HOME/.zsh/spaceship/spaceship.zsh"
 
   setopt interactivecomments
 
 fi
 
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+# Performance tweak:
+# https://scottspence.com/posts/speeding-up-my-zsh-shell
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+# set terminal to line cursor
+# echo -ne '\e[5 q'
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 
 for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work 
 do
-	 # echo "dotfile $dotfile starting..."
    [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 
@@ -79,17 +113,25 @@ if [[ $? -eq 0 ]] then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
 
-# echo "starting more sdkman..."
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # might not need this from the sdk oh my zsh plugin above
-# echo "starting nvm..."
-#export NVM_DIR="$HOME/.nvm"
+# export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# bun
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # bun completions
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/CBishop/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# Add this to the BOTTOM of your .zshrc
+
+# Uncomment to see what might be making
+# zsh slower.
+# zprof

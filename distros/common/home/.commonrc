@@ -2,9 +2,12 @@
 which bindkey > /dev/null 2>&1 && bindkey "^[[3~" delete-char
 which setopt > /dev/null 2>&1 && setopt auto_cd
 
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+# z.
+# [ -r "/usr/share/z/z.sh" ] && source /usr/share/z/z.sh
+# [ -r "/opt/homebrew/etc/profile.d/z.sh" ] && . /opt/homebrew/etc/profile.d/z.sh
+
 # nvm
-[ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+# [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 # npm no longer needs root to install packages.
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
@@ -45,6 +48,17 @@ if which fd &> /dev/null; then
 else
   export FZF_ALT_C_COMMAND="find . -type d|tail -n +2"
 fi
+
+# The presence of the fzf-history-widget will slow down the shell.
+# disable by unsetting the var
+# if command -v atuin >/dev/null 2>&1; then
+  # unset FZF_CTRL_T_COMMAND
+# fi
+
+# zxoide config
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
   
 # if one has ag
 # which ag &> /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
@@ -65,9 +79,9 @@ fi
 # artifacts from windows. Then install nvm with the following:
 # https://docs.microsoft.com/en-us/windows/nodejs/setup-on-wsl2
 # Below is what is appended to .bashrc upon installing nvm with their curl|bash command.
-unset npm_config_prefix
-[ -s "$NVM_STARTUP_SHELL_FILE" ] && \. "$NVM_STARTUP_SHELL_FILE"  # This loads nvm
-[ -s "$NVM_BASH_COMPELTION_FILE" ] && \. "$NVM_BASH_COMPELTION_FILE"  # This loads nvm bash_completion
+# unset npm_config_prefix
+# [ -s "$NVM_STARTUP_SHELL_FILE" ] && \. "$NVM_STARTUP_SHELL_FILE"  # This loads nvm
+# [ -s "$NVM_BASH_COMPELTION_FILE" ] && \. "$NVM_BASH_COMPELTION_FILE"  # This loads nvm bash_completion
 
 # The following line should enable one to just open a new
 # shell, and npm will start referencing the correct node location
