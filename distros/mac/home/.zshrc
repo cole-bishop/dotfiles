@@ -18,12 +18,16 @@ DISABLE_COMPFIX="true"
 #
 # 
 # Smarter completion initialization - rebuild cache once a day.
-autoload -Uz compinit
-if [[ -n $(find ~/.zcompdump -mtime +1 2>/dev/null) ]]; then
-  compinit
-else
-  compinit -C
-fi
+# At the moment, source $ZSH/oh-my-zsh.sh
+# performs this.
+# autoload -Uz compinit
+# if [[ -n $(find ~/.zcompdump -mtime +1 2>/dev/null) ]]; then
+#   compinit
+# else
+#   compinit -C
+# fi
+
+# fpath=(${(uo)fpath})
 
 # End of lines added by compinstall
 
@@ -52,14 +56,14 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 		# curl -sS https://starship.rs/install.sh | sh
 		starship
 		# See all git aliases: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#aliases
-		kubectl
-		tmux
-		zsh-256color
-		deno
-		nvm
+		# kubectl
+		# tmux
+		# zsh-256color
+		# deno
+		# nvm
 		# sdkman auto complete
 		sdk
-		fzf
+		# fzf
 		zsh-autosuggestions
 		# Needs to be last!
 		# https://scottspence.com/posts/speeding-up-my-zsh-shell
@@ -79,6 +83,7 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 
 	# echo "oh-my-zsh starting..."
 	source $ZSH/oh-my-zsh.sh
+	# fpath=(${(uo)fpath})
   fi
 
   # echo "spaceship starting..."
@@ -97,10 +102,10 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # set terminal to line cursor
-# echo -ne '\e[5 q'
+echo -ne '\e[5 q'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
 
 for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work 
 do
@@ -108,8 +113,8 @@ do
 done
 
 # tmuxp (install with "pip install --user tmuxp")
-which tmuxp &> /dev/null
-if [[ $? -eq 0 ]] then
+
+if command -v tmuxp >/dev/null 2>&1; then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
 
@@ -122,10 +127,24 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Make nvm run lazily.
+# Runs on first use.
+nvm() {
+    # Remove this shim function
+    unset -f nvm
+
+    # Load NVM
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+    # Run the now-loaded command
+    nvm "$@"
+}
+
 # bun
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # bun completions
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # bun completions
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/CBishop/.rd/bin:$PATH"
@@ -134,4 +153,4 @@ export PATH="/Users/CBishop/.rd/bin:$PATH"
 
 # Uncomment to see what might be making
 # zsh slower.
-# zprof
+#zprof
