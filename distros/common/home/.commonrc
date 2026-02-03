@@ -11,8 +11,7 @@ which setopt > /dev/null 2>&1 && setopt auto_cd
 # npm no longer needs root to install packages.
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
-# z. If installed from brew
-[ -f "$(brew --prefix)/etc/profile.d/z.sh" ] && source "$(brew --prefix)/etc/profile.d/z.sh"
+
 # ssh agent
 # this line is used if using wsl2.
 [[ $XDG_RUNTIME_DIR == "" ]] && export XDG_RUNTIME_DIR="$HOME/.xdg_runtime_dir" && mkdir "$HOME/.xdg_runtime_dir" 2> /dev/null
@@ -26,15 +25,19 @@ fi
 [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 # X settings
 # which xset > /dev/null 2>&1 && xset -dpms
+
+
 # fzf
 if [ -n "$ZSH_VERSION" ]; then
   shell_extension=zsh
+  source <(fzf --zsh)
 else
   shell_extension=bash
+  eval "$(fzf --bash)"
 fi
 # If 'ag' or 'fd' are found, utilize them passively for
 # fzf for appropriate commands.
-if which ag &> /dev/null; then
+if command -v ag >/dev/null 2>&1; then
   COMMON_DEFAULT_COMMAND='ag --hidden -U -g ""' # utilizes $HOME/.agignore.
   export FZF_DEFAULT_COMMAND="$COMMON_DEFAULT_COMMAND"
   export FZF_CTRL_T_COMMAND="$COMMON_DEFAULT_COMMAND"
@@ -43,7 +46,7 @@ else
   export FZF_CTRL_T_COMMAND="find ."
 fi
 # fzf for fd passive opt it
-if which fd &> /dev/null; then
+if command -v fd >/dev/null 2>&1; then
   export FZF_ALT_C_COMMAND="fd -t d -c never"
 else
   export FZF_ALT_C_COMMAND="find . -type d|tail -n +2"
@@ -57,22 +60,17 @@ fi
 
 # zxoide config
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init zsh)"
+  eval "$(zoxide init $shell_extension)"
 fi
   
-# if one has ag
-# which ag &> /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-
-[ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 # arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
 # xbunutu fzf locations.
 [ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
-# mac fzf locations.
-[ -f "/opt/local/share/fzf/shell/key-bindings.$shell_extension" ] && . "/opt/local/share/fzf/shell/key-bindings.$shell_extension"
-[ -f "/opt/local/share/fzf/shell/completion.$shell_extension" ] && . "/opt/local/share/fzf/shell/completion.$shell_extension"
+# mac fzf homebrew locations.
+[ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 
 # nvm
 # To prep for nvm (if using on WSL2), delete and uninstall all npm and node related

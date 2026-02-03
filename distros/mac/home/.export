@@ -1,3 +1,10 @@
+# When using bash on Mac,
+# removes this warning:
+# The default interactive shell is now zsh.
+# To update your account to use zsh, please run `chsh -s /bin/zsh`.
+# For more details, please visit https://support.apple.com/kb/HT208050.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # settings desired to be the same for bash, zsh, etc, for all types of shell invocations
 # use nvim as editor if possible
 if [ -f /usr/bin/nvim ]; then

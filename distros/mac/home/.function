@@ -1,17 +1,18 @@
-# make github pr with default template there, and the branch name as the title
-ghpr() {
-	if git rev-parse @{u} > /dev/null 2>&1; then
+# Currently doesn't work for bash!
+# make github pr with default template there, and the branch name as the title.
+# ghpr() {
+	# if git rev-parse @{u} > /dev/null 2>&1; then
 	  # echo "Current branch has a remote."
-	else
+	# else
 	  # echo "Current branch does not have a remote."
 	  # same as 'push-branch-first-time'
-	  git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
-	fi
-	gh pr create --title="$(git branch --show-current)" --body=""
-}
+	#   git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+	# fi
+	# gh pr create --title="$(git branch --show-current)" --body=""
+# }
 # git function for pulling all known remote branches and updating them all.
 # Found at https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches#10312587
-guab ()
+function guab ()
 {
   git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
   git fetch --all
