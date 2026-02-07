@@ -114,7 +114,8 @@ klogs() {
   kubectl logs services/$service -f ; echo "Disconected, awaiting service to come back online" && sleep 1 && log $service
 }
 
-# Copies the commit message of the commit of the 1st (or xth) commit ahead of HEAD to the clipboard.
+# Copies the commit message of the commit of the 1st (or xth)
+# commit ahead of HEAD to the clipboard.
 copyCommitAheadMessage() {
   num_commits_ahead=${1:-1}
   eval "git rev-list --format=%B --max-count=1 HEAD@{$num_commits_ahead}|tail -n +2|pbcopy"
@@ -171,7 +172,3 @@ function pretty-xml-inplace() {
 function pretty-all-xml-inplace() {
 	find . -type f -name "*.xml" -print0 | xargs -0 -I{} sh -c 'xmllint --format "{}" > "{}.tmp" && mv "{}.tmp" "{}"'
 }
-
-
-
-

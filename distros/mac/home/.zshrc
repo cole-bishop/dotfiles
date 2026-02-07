@@ -49,7 +49,9 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
     # https://dev.to/thraizz/fix-slow-zsh-startup-due-to-nvm-408k
     zstyle ':omz:plugins:nvm' lazy yes
 
-    # echo "Sourcing oh-my-zsh plugins..."
+    # Note, many plugins call
+	# compinit. Prefer non omz plugins
+	# and test with zmodload after adding one.
     plugins=(
 		git
 		# You may need to install first with:
@@ -83,14 +85,7 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 
 	# echo "oh-my-zsh starting..."
 	source $ZSH/oh-my-zsh.sh
-	# fpath=(${(uo)fpath})
   fi
-
-  # echo "spaceship starting..."
-  # presume spaceship theme installed manually with
-  # mkdir -p "$HOME/.zsh" && git clone --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.zsh/spaceship"
-  #[[ -d "$HOME/.zsh/spaceship" ]] && export SPACESHIP_ROOT="$HOME/.zsh/spaceship"
-  #[[ -f "$HOME/.zsh/spaceship/spaceship.zsh" ]] && source "$HOME/.zsh/spaceship/spaceship.zsh"
 
   setopt interactivecomments
 
@@ -113,14 +108,9 @@ do
 done
 
 # tmuxp (install with "pip install --user tmuxp")
-
 if command -v tmuxp >/dev/null 2>&1; then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # might not need this from the sdk oh my zsh plugin above
 # export NVM_DIR="$HOME/.nvm"
@@ -151,6 +141,15 @@ export PATH="/Users/CBishop/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # Add this to the BOTTOM of your .zshrc
 
+# zxoide config - needs to be at end or close
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
 # Uncomment to see what might be making
 # zsh slower.
-#zprof
+# zprof

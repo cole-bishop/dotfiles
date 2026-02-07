@@ -66,7 +66,7 @@ if [ -d "$HOME/.config/nvm" ] ; then
     export NVM_DIR="$HOME/.config/.nvm"
     export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
-    export NVM_LTS="20.11.1"
+    # export NVM_LTS="20.11.1"
 fi
 
 # Manual installation
@@ -76,7 +76,7 @@ if [ -d "$HOME/.nvm" ] ; then
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
 fi
 
-# add brew, if installed.
+# Add brew for linux, if installed.
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 fi

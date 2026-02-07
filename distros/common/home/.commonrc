@@ -1,11 +1,6 @@
 # ensure usability of delete key in shell.
 which bindkey > /dev/null 2>&1 && bindkey "^[[3~" delete-char
 which setopt > /dev/null 2>&1 && setopt auto_cd
-
-# z.
-# [ -r "/usr/share/z/z.sh" ] && source /usr/share/z/z.sh
-# [ -r "/opt/homebrew/etc/profile.d/z.sh" ] && . /opt/homebrew/etc/profile.d/z.sh
-
 # nvm
 # [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 # npm no longer needs root to install packages.
@@ -21,11 +16,12 @@ fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
 fi
+
 # tmux plugin manager tpm. Clone if not present.
 [ ! -d "$HOME/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 # X settings
-# which xset > /dev/null 2>&1 && xset -dpms
 
+# which xset > /dev/null 2>&1 && xset -dpms
 
 # fzf
 if [ -n "$ZSH_VERSION" ]; then
@@ -35,10 +31,12 @@ else
   shell_extension=bash
   eval "$(fzf --bash)"
 fi
+
 # If 'ag' or 'fd' are found, utilize them passively for
 # fzf for appropriate commands.
 if command -v ag >/dev/null 2>&1; then
-  COMMON_DEFAULT_COMMAND='ag --hidden -U -g ""' # utilizes $HOME/.agignore.
+  # utilizes $HOME/.agignore
+  COMMON_DEFAULT_COMMAND='ag --hidden -U -g ""' 
   export FZF_DEFAULT_COMMAND="$COMMON_DEFAULT_COMMAND"
   export FZF_CTRL_T_COMMAND="$COMMON_DEFAULT_COMMAND"
 else
@@ -64,17 +62,14 @@ unset HISTTIMEFORMAT
   # unset FZF_CTRL_T_COMMAND
 # fi
 
-# zxoide config
-if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init $shell_extension)"
-fi
-  
 # arch linux fzf locations.
 [ -f "/usr/share/fzf/key-bindings.$shell_extension" ] && . "/usr/share/fzf/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
+
 # xbunutu fzf locations.
 [ -f "/usr/share/doc/fzf/examples/key-bindings.$shell_extension" ] && . "/usr/share/doc/fzf/examples/key-bindings.$shell_extension"
 [ -f "/usr/share/fzf/completion.$shell_extension" ] && . "/usr/share/fzf/completion.$shell_extension"
+
 # mac fzf homebrew locations.
 [ -f "$HOME/.fzf.$shell_extension" ] && source "$HOME/.fzf.$shell_extension"
 
