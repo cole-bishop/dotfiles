@@ -52,6 +52,12 @@ else
   export FZF_ALT_C_COMMAND="find . -type d|tail -n +2"
 fi
 
+# zsh often adds timestamps to the history file,
+# which can create an issue if, usually, bash
+# is not expecting the timestamps.
+# Run history -r to re-read the history file if you modified it.
+unset HISTTIMEFORMAT
+
 # The presence of the fzf-history-widget will slow down the shell.
 # disable by unsetting the var
 # if command -v atuin >/dev/null 2>&1; then
