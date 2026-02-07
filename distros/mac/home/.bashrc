@@ -14,7 +14,9 @@ do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
 
-eval "$(starship init bash)"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init bash)"
+fi
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/CBishop/.rd/bin:$PATH"
