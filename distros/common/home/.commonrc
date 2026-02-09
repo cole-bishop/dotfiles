@@ -25,6 +25,8 @@ fi
 # which xset > /dev/null 2>&1 && xset -dpms
 
 # fzf
+# Note, need version 0.48 or later for this.
+# Best to install with brew.
 if [ -n "$ZSH_VERSION" ]; then
   shell_extension=zsh
   source <(fzf --zsh)
