@@ -61,12 +61,6 @@ if command -v tmuxp >/dev/null 2>&1; then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
 
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/CBishop/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-# Add this to the BOTTOM of your .zshrc
-
 if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
 fi
@@ -89,6 +83,11 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
 [ -f "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/CBishop/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# Add this to the BOTTOM of your .zshrc
 
 # Uncomment to see what might be making
 # zsh slower.
