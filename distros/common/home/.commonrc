@@ -2,12 +2,6 @@
 which bindkey > /dev/null 2>&1 && bindkey "^[[3~" delete-char
 which setopt > /dev/null 2>&1 && setopt auto_cd
 
-# nvm
-# [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-# npm no longer needs root to install packages.
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
-
 # ssh agent
 # this line is used if using wsl2.
 [[ $XDG_RUNTIME_DIR == "" ]] && export XDG_RUNTIME_DIR="$HOME/.xdg_runtime_dir" && mkdir "$HOME/.xdg_runtime_dir" 2> /dev/null

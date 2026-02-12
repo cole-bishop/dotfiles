@@ -61,29 +61,6 @@ if command -v tmuxp >/dev/null 2>&1; then
 	[[ -d ~/.tmuxp ]] && eval "$(_TMUXP_COMPLETE=source_zsh tmuxp)"
 fi
 
-# might not need this from the sdk oh my zsh plugin above
-# export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Make nvm run lazily.
-# Runs on first use.
-nvm() {
-    # Remove this shim function
-    unset -f nvm
-
-    # Load NVM
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-    # Run the now-loaded command
-    nvm "$@"
-}
-
-# bun
-# [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # bun completions
-# export BUN_INSTALL="$HOME/.bun"
-# export PATH="$BUN_INSTALL/bin:$PATH"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/CBishop/.rd/bin:$PATH"
@@ -98,9 +75,10 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
+brew_prefix=$(brew --prefix 2>/dev/null)
 
 # brew install zsh-syntax-highligting
-[ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f "$brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source "$brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # brew install zsh-autosuggestions
 #
@@ -110,14 +88,7 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
-[ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# sdkman takes a long time to load, so make it lazy.
-sdk() {
-  echo "Initializing SDKMAN..."
-  source "$HOME/.sdkman/bin/sdkman-init.sh"
-  sdk "$@"
-}
+[ -f "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Uncomment to see what might be making
 # zsh slower.

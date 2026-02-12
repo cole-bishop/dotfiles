@@ -26,7 +26,3 @@ export PATH="/Users/CBishop/.rd/bin:$PATH"
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
-
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/cole/.sdkman"
-[[ -s "/home/cole/.sdkman/bin/sdkman-init.sh" ]] && source "/home/cole/.sdkman/bin/sdkman-init.sh"

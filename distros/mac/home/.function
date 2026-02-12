@@ -172,3 +172,75 @@ function pretty-xml-inplace() {
 function pretty-all-xml-inplace() {
 	find . -type f -name "*.xml" -print0 | xargs -0 -I{} sh -c 'xmllint --format "{}" > "{}.tmp" && mv "{}.tmp" "{}"'
 }
+
+# lazy load nvm, sdkman and bun
+nvm-init() {
+  echo "Initializing nvm..."
+  unset npm_config_prefix
+  unset -f nvm node npm npx
+  export NVM_INIT=1
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+nvm() {
+  if [[ -n $NVM_INIT ]]; then
+    nvm "$@"
+  else
+    nvm-init
+    nvm "$@"
+  fi
+}
+node() {
+  if [[ -n $NVM_INIT ]]; then
+    node "$@"
+  else
+    nvm-init
+    node "$@"
+  fi
+}
+npm() {
+  if [[ -n $NVM_INIT ]]; then
+    npm "$@"
+  else
+    nvm-init
+    npm "$@"
+  fi
+}
+npx() {
+  if [[ -n $NVM_INIT ]]; then
+    npx "$@"
+  else
+    nvm-init
+    npx "$@"
+  fi
+}
+
+# sdkman takes a long time to load, so make it lazy.
+sdk() {
+  if [[ -n $SDKMAN_INIT ]]; then
+    sdk "$@"
+  else
+    export SDKMAN_INIT=1
+    echo "Initializing SDKMAN..."
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    sdk "$@"
+  fi
+}
+
+bun() {
+  if [[ -n $BUN_INIT ]]; then
+    $HOME/.bun/bin/bun "$@"
+  else
+    echo "Initializing bun..."
+    export BUN_INIT=1
+    # Load auto completions if not bash shell
+    if [ -z "$BASH_VERSION" ]; then
+      echo "Adding completions..."
+      [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun" # bun completions
+    fi
+    export BUN_INSTALL="$HOME/.bun"
+    export PATH="$BUN_INSTALL/bin:$PATH"
+    $HOME/.bun/bin/bun "$@"
+  fi
+}
