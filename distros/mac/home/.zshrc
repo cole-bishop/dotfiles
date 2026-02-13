@@ -28,10 +28,9 @@ else
 fi
 
 # fpath=(${(uo)fpath})
-
 # Added as per:
-# https://intellij-support.jetbrains.com/hc/en-us/articles/15268184143890-Shell-Environment-Loading
-# so they are removed when intellij uses a shell.
+# https://youtrack.jetbrains.com/articles/SUPPORT-A-1727/Shell-Environment-Loading
+# In the event one needs to customize what is loaded in the IntelliJ environment.
 # Treat as though the if brance wasn't here for regular configuration.
 # if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 # fi
@@ -88,6 +87,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
 export PATH="/Users/CBishop/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # Add this to the BOTTOM of your .zshrc
+
+# use the lazy loaded version in .function
+# if not needed ferquently.
+source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # Uncomment to see what might be making
 # zsh slower.
