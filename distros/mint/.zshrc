@@ -101,20 +101,25 @@ if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then 
+    # packages to install:
+    # brew install starship zoxide zsh-syntax-highlighting zsh-autosuggestions fd ag fzf
 
-# brew install zsh-syntax-highligting
-[ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# brew install zsh-autosuggestions
-#
-# Performance tweak:
-# https://scottspence.com/posts/speeding-up-my-zsh-shell
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
-[ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # brew install zsh-syntax-highligting
+    [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+    # brew install zsh-autosuggestions
+    #
+    # Performance tweak:
+    # https://scottspence.com/posts/speeding-up-my-zsh-shell
+    ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+    ZSH_AUTOSUGGEST_USE_ASYNC=1
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff"
+    [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # set terminal to line cursor
 echo -ne '\e[5 q'
