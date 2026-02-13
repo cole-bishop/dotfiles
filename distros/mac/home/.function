@@ -217,16 +217,17 @@ npx() {
 }
 
 # sdkman takes a long time to load, so make it lazy.
-sdk() {
-  if [[ -n $SDKMAN_INIT ]]; then
-    sdk "$@"
-  else
-    export SDKMAN_INIT=1
-    echo "Initializing SDKMAN..."
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-    sdk "$@"
-  fi
-}
+# Unless you use it daily!
+# sdk() {
+#   if [[ -n $SDKMAN_INIT ]]; then
+#     sdk "$@"
+#   else
+#     export SDKMAN_INIT=1
+#     echo "Initializing SDKMAN..."
+#     source "$HOME/.sdkman/bin/sdkman-init.sh"
+#     sdk "$@"
+#   fi
+# }
 
 bun() {
   if [[ -n $BUN_INIT ]]; then
