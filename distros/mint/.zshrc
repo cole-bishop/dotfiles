@@ -8,6 +8,17 @@ setopt HIST_IGNORE_DUPS        # Do not record an event that was just recorded a
 setopt HIST_SAVE_NO_DUPS       # Do not write duplicate events to the history file
 setopt HIST_IGNORE_SPACE       # Do not record an event that starts with a space
 
+# Smarter completion initialization for autocompletion
+# (rebuild cache once a day).
+# At the moment, source $ZSH/oh-my-zsh.sh
+# performs this.
+autoload -Uz compinit
+if [[ -n $(find ~/.zcompdump -mtime +1 2>/dev/null) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 # shopt -s checkwinsize
