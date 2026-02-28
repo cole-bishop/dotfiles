@@ -92,7 +92,7 @@ fi
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Common shell files.
-for dotfile in .alias .secrets .export .function .commonrc
+for dotfile in .alias .secrets .export .alias .commonrc
 do
     [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
