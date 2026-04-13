@@ -76,6 +76,10 @@ if [ -d "$HOME/.nvm" ] ; then
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
 fi
 
+if [ -f "$HOME/.cargo/env" ] ; then
+    . "$HOME/.cargo/env"
+fi
+
 # Add brew for linux, if installed.
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
