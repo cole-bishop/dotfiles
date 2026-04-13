@@ -1,3 +1,4 @@
+alias remove-first-and-last-character-from-string='sed "s/^.//;s/.$//"'
 # dotnet
 # alias dotnet='dotnet.exe'
 # grep

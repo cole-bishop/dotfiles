@@ -1,3 +1,5 @@
+function no-double-quotes-backslash() { sed 's#\\"#"#g'; }
+
 # Currently doesn't work for bash!
 # make github pr with default template there, and the branch name as the title.
 # ghpr() {
@@ -134,9 +136,13 @@ function grep-get-pod-name() {
   kubectl get pods --no-headers -o custom-columns=":metadata.name"|grep $1|head -n 1
 }
 
+function is-pod-name-up() {
+	[[ $(kubectl get pod $(grep-get-pod-name $1) -n default -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}') == "True" ]]
+}
+
 function wait-until-pod-name-up() {
 	echo "Waiting until pod $1 is up..."
-	until [[ $(kubectl get pod $(grep-get-pod-name $1) -n default -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
+	until is-pod-name-up "$1"; do
 		sleep 1
 	done
 	echo "Pod $1 is up!"
