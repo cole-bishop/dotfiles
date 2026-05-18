@@ -54,26 +54,27 @@ if [ -d "$HOME/.config" ] ; then
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
 
-# NVM installed from brew.
-if [[ -d "/opt/homebrew/opt/nvm" ]] && [[ -d "/opt/homebrew/opt/nvm" ]]; then
+if [[ -d "/opt/homebrew/opt/nvm" ]] ; then
+    # NVM installed from brew.
     export NVM_DIR="$HOME/.nvm"
     export NVM_STARTUP_SHELL_FILE="/opt/homebrew/opt/nvm/nvm.sh"
     export NVM_BASH_COMPELTION_FILE="/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-fi
-
-# NVM installed on WSL
-if [ -d "$HOME/.config/nvm" ] ; then
+elif [ -d "$HOME/.config/nvm" ] ; then
+    # NVM installed on WSL
     export NVM_DIR="$HOME/.config/.nvm"
     export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
     # export NVM_LTS="20.11.1"
-fi
-
-# Manual installation
-if [ -d "$HOME/.nvm" ] ; then
+elif [ -d "$HOME/.nvm" ] ; then
+    # Manual installation
     export NVM_DIR="$HOME/.nvm"
     export NVM_STARTUP_SHELL_FILE="$NVM_DIR/nvm.sh"
     export NVM_BASH_COMPELTION_FILE="$NVM_DIR/bash_completion"
+fi
+# If set to a windowish path, this would be bad. It can cause
+# problems with yarn.
+if [[ "$LOCALAPPDATA" == /mnt/c/* || "$LOCALAPPDATA" == [A-Za-z]:* ]]; then
+    unset LOCALAPPDATA
 fi
 
 if [ -f "$HOME/.cargo/env" ] ; then
