@@ -21,47 +21,63 @@ function guab ()
   git pull --all
 }
 
-# Like gbal alias, but makes a worktree for an existing branch if it doesn't exist, and cd's into it.
+# Worktree functions
+# Like gbal alias (see .alias),
+
+# Fzf most recently used branches,
+# select one, and cd into a worktree for it, creating the worktree if it doesn't exist.
 function gbalw() {
   local branch
   branch=$(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)" | fzf | sed "s#^[[:space:]]*origin/##g" | tr -d '[:space:]')
   [[ -z "$branch" ]] && return 1
 
+  # Check if a worktree for this branch already exists (works even from within a worktree)
+  local existing_path
+  existing_path=$(git worktree list --porcelain | awk -v b="$branch" '/^worktree /{p=$0; sub(/^worktree /,"",p)} /^branch refs\/heads\//{ref=$0; sub(/^branch refs\/heads\//,"",ref); if(ref==b) print p}')
+  if [[ -n "$existing_path" ]]; then
+    echo "Worktree for branch $branch already exists at $existing_path. Switching to it."
+    cd "$existing_path"
+    return
+  fi
+
+  # Use the main worktree (first entry) as the canonical repo root
+  local repo_root
+  repo_root=$(git worktree list --porcelain | awk '/^worktree /{print $2; exit}')
   local repo_name
-  repo_name=$(basename "$(git rev-parse --show-toplevel)")
+  repo_name=$(basename "$repo_root")
 
   local worktree_path
-  worktree_path="$HOME/dev/src/worktree/$repo_name/$branch"
+  worktree_path="$(dirname "$repo_root")/worktrees/$repo_name/$branch"
 
-  if [[ -d "$worktree_path" ]] || git worktree list --porcelain | grep -qF "worktree $worktree_path"; then
-    cd "$worktree_path"
+  echo "trying to create worktree at $worktree_path for branch $branch"
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git worktree add "$worktree_path" "$branch" && cd "$worktree_path"
   else
-    echo "trying to create worktree at $worktree_path for branch $branch"
-    if git show-ref --verify --quiet "refs/heads/$branch"; then
-      git worktree add "$worktree_path" "$branch" && cd "$worktree_path"
-    else
-      # The 'origin/' prefix is required so git uses the existing remote branch
-      # as the starting point rather than creating a new empty branch from HEAD.
-      git worktree add --track -b "$branch" "$worktree_path" "origin/$branch" && cd "$worktree_path"
+    # The 'origin/' prefix is required so git uses the existing remote branch
+    # as the starting point rather than creating a new empty branch from HEAD.
+    git worktree add --track -b "$branch" "$worktree_path" "origin/$branch" && cd "$worktree_path"
 
-      # Make it not a headless state
-      git checkout "$branch"
-    fi
+    # Make it not a headless state
+    git checkout "$branch"
   fi
 } 
 
-# sets it up like gbalw does if it doesn't exist, and cd's into it.
+# Give a new branch name, create a worktree for it, 
+# and cd into the worktree, or cd into the worktree if it already exists.
 function gwc() {
   local branch="$1"
   [[ -z "$branch" ]] && echo "Usage: gwc <branch-name>" && return 1
 
+  local repo_root
+  repo_root=$(git rev-parse --show-toplevel)
   local repo_name
-  repo_name=$(basename "$(git rev-parse --show-toplevel)")
+  repo_name=$(basename "$repo_root")
 
   local worktree_path
-  worktree_path="$HOME/dev/src/worktree/$repo_name/$branch"
+  worktree_path="$(dirname "$repo_root")/worktrees/$repo_name/$branch"
 
   if [[ -d "$worktree_path" ]] || git worktree list --porcelain | grep -qF "worktree $worktree_path"; then
+    echo "Worktree for branch $branch already exists at $worktree_path. Switching to it."
     cd "$worktree_path"
   else
     echo "trying to create worktree at $worktree_path for branch $branch"
@@ -109,6 +125,11 @@ function gwr() {
   done <<< "$selected"
 
   git worktree prune
+}
+
+# List git worktrees
+function gwl() {
+  git worktree list
 }
 
 
