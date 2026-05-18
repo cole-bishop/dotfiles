@@ -20,6 +20,99 @@ function guab ()
   git fetch --all
   git pull --all
 }
+
+# Like gbal alias, but makes a worktree for an existing branch if it doesn't exist, and cd's into it.
+function gbalw() {
+  local branch
+  branch=$(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)" | fzf | sed "s#^[[:space:]]*origin/##g" | tr -d '[:space:]')
+  [[ -z "$branch" ]] && return 1
+
+  local repo_name
+  repo_name=$(basename "$(git rev-parse --show-toplevel)")
+
+  local worktree_path
+  worktree_path="$HOME/dev/src/worktree/$repo_name/$branch"
+
+  if [[ -d "$worktree_path" ]] || git worktree list --porcelain | grep -qF "worktree $worktree_path"; then
+    cd "$worktree_path"
+  else
+    echo "trying to create worktree at $worktree_path for branch $branch"
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      git worktree add "$worktree_path" "$branch" && cd "$worktree_path"
+    else
+      # The 'origin/' prefix is required so git uses the existing remote branch
+      # as the starting point rather than creating a new empty branch from HEAD.
+      git worktree add --track -b "$branch" "$worktree_path" "origin/$branch" && cd "$worktree_path"
+
+      # Make it not a headless state
+      git checkout "$branch"
+    fi
+  fi
+} 
+
+# sets it up like gbalw does if it doesn't exist, and cd's into it.
+function gwc() {
+  local branch="$1"
+  [[ -z "$branch" ]] && echo "Usage: gwc <branch-name>" && return 1
+
+  local repo_name
+  repo_name=$(basename "$(git rev-parse --show-toplevel)")
+
+  local worktree_path
+  worktree_path="$HOME/dev/src/worktree/$repo_name/$branch"
+
+  if [[ -d "$worktree_path" ]] || git worktree list --porcelain | grep -qF "worktree $worktree_path"; then
+    cd "$worktree_path"
+  else
+    echo "trying to create worktree at $worktree_path for branch $branch"
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      git worktree add "$worktree_path" "$branch" && cd "$worktree_path"
+    else
+      git worktree add --track -b "$branch" "$worktree_path" "origin/$branch" && cd "$worktree_path"
+      git checkout "$branch"
+    fi
+  fi
+}
+
+# Remove one or more git worktrees, sorted by most recently used, via fzf multi-select.
+function gwr() {
+  local main_path
+  main_path=$(git worktree list --porcelain | awk 'NR==1{print $2}')
+
+  local sorted_paths
+  sorted_paths=$(git worktree list --porcelain \
+    | awk '/^worktree /{print $2}' \
+    | grep -vxF "$main_path" \
+    | while IFS= read -r wt_path; do
+        echo "$(stat -f '%m' "$wt_path" 2>/dev/null || echo 0) $wt_path"
+      done \
+    | sort -rn \
+    | awk '{print $2}')
+
+  [[ -z "$sorted_paths" ]] && echo "No removable worktrees found." && return 1
+
+  local display_lines
+  display_lines=$(while IFS= read -r wt_path; do
+    git worktree list | grep "^$wt_path "
+  done <<< "$sorted_paths")
+
+  local selected
+  selected=$(echo "$display_lines" \
+    | fzf --multi --header="Select worktrees to remove (TAB for multi-select)" \
+    | awk '{print $1}')
+
+  [[ -z "$selected" ]] && return 0
+
+  while IFS= read -r wt_path; do
+    echo "Removing worktree: $wt_path"
+    git worktree remove "$wt_path"
+  done <<< "$selected"
+
+  git worktree prune
+}
+
+
+
 # stage-commit-version-files
 function scvf() {
 	git diff --name-only "$1~1" "$1"|xargs git checkout "$1"
@@ -83,6 +176,41 @@ function fs() {
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
+}
+
+decode-jwt() {
+  local token
+  token=$(cat | tr -d '[:space:]')
+
+  if [ -z "$token" ]; then
+    echo "Error: no input" >&2
+    return 1
+  fi
+
+  # Validate rough JWT shape (three dot-separated parts)
+  if [[ $(echo "$token" | tr -cd '.' | wc -c) -ne 2 ]]; then
+    echo "Error: input does not look like a JWT (expected header.payload.signature)" >&2
+    return 1
+  fi
+
+  _decode_part() {
+    local part="$1"
+    # Restore standard base64 alphabet from base64url
+    part=$(echo "$part" | tr -- '-_' '+/')
+    # Add padding
+    local pad=$(( (4 - ${#part} % 4) % 4 ))
+    printf '%s%s' "$part" "$(printf '=%.0s' $(seq 1 $pad))" | base64 --decode 2>/dev/null
+  }
+
+  local header payload
+  header=$(echo "$token" | cut -d. -f1)
+  payload=$(echo "$token" | cut -d. -f2)
+
+  echo "=== Header ==="
+  _decode_part "$header" | python3 -m json.tool
+
+  echo "=== Payload ==="
+  _decode_part "$payload" | python3 -m json.tool
 }
 
 # To use java jar as cli tool.
@@ -177,6 +305,15 @@ function pretty-xml-inplace() {
 
 function pretty-all-xml-inplace() {
 	find . -type f -name "*.xml" -print0 | xargs -0 -I{} sh -c 'xmllint --format "{}" > "{}.tmp" && mv "{}.tmp" "{}"'
+}
+
+function url-decode() {
+  # Supports both input from arguments and from stdin.
+	if [ $# -gt 0 ]; then
+		echo "$*"
+	else
+		cat
+	fi | python3 -c "import sys, urllib.parse; print(urllib.parse.unquote(sys.stdin.read().strip()))"
 }
 
 # lazy load nvm, sdkman and bun
