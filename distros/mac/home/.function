@@ -68,8 +68,9 @@ function gwc() {
   local branch="$1"
   [[ -z "$branch" ]] && echo "Usage: gwc <branch-name>" && return 1
 
+  # Use the main worktree (first entry) as the canonical repo root
   local repo_root
-  repo_root=$(git rev-parse --show-toplevel)
+  repo_root=$(git worktree list --porcelain | awk '/^worktree /{print $2; exit}')
   local repo_name
   repo_name=$(basename "$repo_root")
 
@@ -81,12 +82,8 @@ function gwc() {
     cd "$worktree_path"
   else
     echo "trying to create worktree at $worktree_path for branch $branch"
-    if git show-ref --verify --quiet "refs/heads/$branch"; then
-      git worktree add "$worktree_path" "$branch" && cd "$worktree_path"
-    else
-      git worktree add --track -b "$branch" "$worktree_path" "origin/$branch" && cd "$worktree_path"
-      git checkout "$branch"
-    fi
+      git worktree add --track -b "$branch" "$worktree_path"
+      cd "$worktree_path"
   fi
 }
 
