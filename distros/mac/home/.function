@@ -24,9 +24,10 @@ function guab ()
 # Worktree functions
 # Like gbal alias (see .alias),
 
+# "git worktree (for existing branches)"
 # Fzf most recently used branches,
 # select one, and cd into a worktree for it, creating the worktree if it doesn't exist.
-function gbalw() {
+function gw() {
   local branch
   branch=$(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)" | fzf | sed "s#^[[:space:]]*origin/##g" | tr -d '[:space:]')
   [[ -z "$branch" ]] && return 1
@@ -62,6 +63,7 @@ function gbalw() {
   fi
 } 
 
+# "git worktree create"
 # Give a new branch name, create a worktree for it, 
 # and cd into the worktree, or cd into the worktree if it already exists.
 function gwc() {
@@ -87,8 +89,9 @@ function gwc() {
   fi
 }
 
+# "git worktree delete"
 # Remove one or more git worktrees, sorted by most recently used, via fzf multi-select.
-function gwr() {
+function gwd() {
   local main_path
   main_path=$(git worktree list --porcelain | awk 'NR==1{print $2}')
 
@@ -124,7 +127,7 @@ function gwr() {
   git worktree prune
 }
 
-# List git worktrees
+# "git worktree list"
 function gwl() {
   git worktree list
 }
