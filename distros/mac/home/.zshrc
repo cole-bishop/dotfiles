@@ -50,7 +50,7 @@ setopt interactivecomments     # Allow comments in interactive shell
 # set terminal to line cursor
 echo -ne '\e[5 q'
 
-for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work 
+for dotfile in .alias .secrets .export .function .commonrc .kubectl-aliases .work-zsh
 do
    [ -f "$HOME/$dotfile" ] && source "$HOME/$dotfile"
 done
