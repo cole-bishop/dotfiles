@@ -24,9 +24,31 @@ function guab ()
 # Worktree functions
 # Like gbal alias (see .alias),
 
+GW_FILES_TO_COPY=(.env .idea .vscode)
+
+# Copy files/directories from the main worktree into the current worktree.
+# Usage: _gw_copy_files <repo_root> <file1> [file2] ...
+function _gw_copy_files() {
+  local src_root="$1"
+  shift
+  for item in "$@"; do
+    local src="$src_root/$item"
+    if [[ ! -e "$src" ]]; then
+      echo "warning: $item does not exist in $src_root, skipping."
+      continue
+    fi
+    local dest_dir
+    dest_dir=$(dirname "$item")
+    [[ -n "$dest_dir" && "$dest_dir" != "." ]] && mkdir -p "$dest_dir"
+    cp -R "$src" "$item"
+    echo "copied $item"
+  done
+}
+
 # "git worktree (for existing branches)"
 # Fzf most recently used branches,
 # select one, and cd into a worktree for it, creating the worktree if it doesn't exist.
+# Set GW_FILES_TO_COPY=(file1 dir1 ...) to copy files/directories from the main worktree.
 function gw() {
   local branch
   branch=$(git for-each-ref --sort=-committerdate --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset)" | fzf | sed "s#^[[:space:]]*origin/##g" | tr -d '[:space:]')
@@ -61,11 +83,17 @@ function gw() {
     # Make it not a headless state
     git checkout "$branch"
   fi
+
+  # Copy files listed in GW_FILES_TO_COPY into the new worktree
+  if (( ${#GW_FILES_TO_COPY[@]} )) && [[ "$PWD" == "$worktree_path" ]]; then
+    _gw_copy_files "$repo_root" "${GW_FILES_TO_COPY[@]}"
+  fi
 } 
 
 # "git worktree create"
 # Give a new branch name, create a worktree for it, 
 # and cd into the worktree, or cd into the worktree if it already exists.
+# Set GW_FILES_TO_COPY=(file1 dir1 ...) to copy files/directories from the main worktree.
 function gwc() {
   local branch="$1"
   [[ -z "$branch" ]] && echo "Usage: gwc <branch-name>" && return 1
@@ -86,6 +114,11 @@ function gwc() {
     echo "trying to create worktree at $worktree_path for branch $branch"
       git worktree add --track -b "$branch" "$worktree_path"
       cd "$worktree_path"
+  fi
+
+  # Copy files listed in GW_FILES_TO_COPY into the new worktree
+  if (( ${#GW_FILES_TO_COPY[@]} )) && [[ "$PWD" == "$worktree_path" ]]; then
+    _gw_copy_files "$repo_root" "${GW_FILES_TO_COPY[@]}"
   fi
 }
 
@@ -129,7 +162,9 @@ function gwd() {
 
 # "git worktree list"
 function gwl() {
-  git worktree list
+  local selected
+  selected=$(git worktree list | fzf | awk '{print $1}')
+  [[ -n "$selected" ]] && cd "$selected"
 }
 
 
