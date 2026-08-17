@@ -5,12 +5,40 @@
 # For more details, please visit https://support.apple.com/kb/HT208050.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# --- macOS PATH bootstrap ------------------------------------------------
+# /etc/zprofile (path_helper) and ~/.zprofile (brew shellenv) run for LOGIN
+# shells only. Non-login zsh/bash (IDE terminals, nested `zsh`, tool-spawned
+# shells) start with no /opt/homebrew/bin, /usr/sbin or /sbin, which breaks
+# every later brew/go/fzf lookup. Both steps no-op if a login shell ran first.
+
+# 0. Guarantee PATH is exported. When PATH is absent from the environment
+#    entirely (sanitised env, launchd, `env -i`), bash invents a default but
+#    keeps it as a NON-exported shell variable. Subprocesses then see no PATH
+#    at all, so path_helper/brew shellenv below have nothing to preserve and
+#    clobber PATH down to just their own entries, losing /usr/bin and /bin.
+export PATH
+
+# 1. Restore system PATH. MUST precede brew shellenv: path_helper moves
+#    anything not in /etc/paths to the END of PATH.
+case ":$PATH:" in
+    *:/usr/sbin:*) ;;
+    *) [ -x /usr/libexec/path_helper ] && eval "$(/usr/libexec/path_helper -s)" ;;
+esac
+
+# 2. Put Homebrew in front.
+if [ -z "$HOMEBREW_PREFIX" ] && [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+# -------------------------------------------------------------------------
+
 # settings desired to be the same for bash, zsh, etc, for all types of shell invocations
 # use nvim as editor if possible
-if [ -f /usr/bin/nvim ]; then
-    EDITOR="nvim"
+# Resolved via PATH rather than a hardcoded /usr/bin path, since Homebrew
+# installs nvim to $HOMEBREW_PREFIX/bin.
+if command -v nvim > /dev/null 2>&1; then
+    export EDITOR="nvim"
 else
-    EDITOR="vim"
+    export EDITOR="vim"
 fi
 
 export WSL_HOME="/mnt/c/Users/cole.bishop"
